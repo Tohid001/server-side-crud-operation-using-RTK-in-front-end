@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+  background: pink;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.column {
+  flex-basis: 30%;
+}
+
+.column h4 {
+  margin: 0;
+}
+
+#button {
+  flex-basis: 10%;
+}
+
+#button button {
+  all: unset;
+  display: inline-block;
+  background: red;
+  color: white;
+  /* width: 50%; */
+  padding: 0.5rem;
+  border-radius: 5px;
+}
