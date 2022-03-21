@@ -1,32 +1,24 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GlobalReset } from "./Global.styled.js";
-import { Form, TodoList } from "./Components";
+import { Form, TodoList, Home } from "./Components";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-
-  const deleteHandler = useCallback((id) => {
-    setTodos((prev) => {
-      const filteredTodos = prev.filter((todo, index) => todo.id !== id);
-      return filteredTodos;
-    });
-  }, []);
-
-  const addTodoHandler = useCallback((newTodo) => {
-    setTodos((prev) => [...prev, newTodo]);
-  }, []);
-
+  console.log("App rendered");
   return (
     <>
       <GlobalReset />
-      <Form addTodoHandler={addTodoHandler} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+      {/* <Form addTodoHandler={addTodoHandler} />
       <div className="TodoContainer">
         {todos.map((todo, index) => {
           return (
             <TodoList todo={todo} key={index} deleteHandler={deleteHandler} />
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }
