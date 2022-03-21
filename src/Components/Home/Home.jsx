@@ -27,7 +27,7 @@ function Home() {
     <>
       <UsersContainer>
         {users.map((user, index) => {
-          return <UserCard key={index} user={user} userNo={index} />;
+          return <UserCard key={index} user={user} userNo={index + 1} />;
         })}
       </UsersContainer>
     </>

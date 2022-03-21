@@ -3,6 +3,7 @@ import {
   CardContainer,
   CardItem,
   SecondaryCardContainer,
+  HoveringItem,
 } from "./UserCard.styled";
 
 function UserCard({ user, userNo }) {
@@ -22,6 +23,7 @@ function UserCard({ user, userNo }) {
         </CardItem>
         <CardItem>{email}</CardItem>
       </SecondaryCardContainer>
+      <HoveringItem />
     </CardContainer>
   );
 }

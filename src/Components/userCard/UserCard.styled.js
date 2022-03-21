@@ -1,5 +1,27 @@
 import styled from "styled-components";
 
+export const HoveringItem = styled.div`
+  display: block; //block
+  z-index: 10;
+  position: absolute;
+  /* top: -1px;
+  bottom: -0.5px;
+  right: 0;
+  left: 0; */
+  top: 13.5px; //0
+  bottom: -12.5px; //0
+  left: 1px;
+  right: 0.4px;
+  z-index: 20;
+  transform: skewY(var(--skew));
+  transform: scaleX(0); // 0
+  background: rgba(252, 0, 193, 0.8);
+
+  /* border-radius: 0.25rem; */
+  transition: transform 0.24s ease-in;
+  transform-origin: left;
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   color: #c5c5ce;
@@ -13,8 +35,8 @@ export const CardContainer = styled.div`
   &::before {
     content: "";
     position: absolute;
-    top: -1px;
-    bottom: -0.5px;
+    top: 0px; //-1
+    bottom: 0px; /////-.5
     right: 0;
     left: 0;
     z-index: -2;
@@ -52,6 +74,12 @@ export const CardContainer = styled.div`
     &:nth-child(1) {
     }
   }
+  &:hover {
+    & ${HoveringItem} {
+      ///
+      transform: scaleX(1) skewY(var(--skew));
+    }
+  }
 `;
 
 export const Flex = styled.div`
@@ -75,8 +103,11 @@ export const CardItem = styled(Flex)`
     line-height: 1em;
     padding: 1em;
     font-weight: bold;
+    color: white;
+    opacity: 0.92;
   }
   &:nth-child(4) {
+    opacity: 0.8;
     font-style: italic;
     margin-top: -1.2rem;
     font-size: 0.75rem;
@@ -91,7 +122,7 @@ export const CardItem = styled(Flex)`
     }
   }
   &:nth-child(5) {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 400;
     line-height: 1em;
     /* padding: 1em; */
@@ -114,7 +145,7 @@ export const SecondaryCardContainer = styled.div`
     top: 0em;
     right: 0.5em;
     color: white;
-    opacity: 0.65;
+    opacity: 0.45;
     z-index: 1;
     /* font-family: var(--brand-font-alt); */
   }
