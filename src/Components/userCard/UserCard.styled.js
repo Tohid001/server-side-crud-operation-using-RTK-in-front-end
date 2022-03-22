@@ -90,10 +90,7 @@ export const CardContainer = styled.div`
   & > * {
     text-align: center;
   }
-  & div {
-    &:nth-child(1) {
-    }
-  }
+
   &:hover {
     & ${HoveringItem} {
       &::before {

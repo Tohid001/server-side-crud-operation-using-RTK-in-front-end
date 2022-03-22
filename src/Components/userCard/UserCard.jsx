@@ -28,7 +28,7 @@ function UserCard({ user, userNo }) {
       </SecondaryCardContainer>
       <HoveringItem>
         <div>
-          <UserDetailsLink to={`/user/:${id}`}>
+          <UserDetailsLink to={`/user/${id}`}>
             <p> Show details</p>
             <span>
               <AiFillEye />
