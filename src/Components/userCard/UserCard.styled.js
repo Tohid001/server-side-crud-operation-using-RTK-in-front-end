@@ -1,44 +1,69 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+
+export const UserDetailsLink = styled(NavLink)`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 1em;
+  font-weight: bold;
+  gap: 1rem;
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+`;
 
 export const HoveringItem = styled.div`
-  display: block; //block
-  z-index: 10;
+  display: grid;
+  place-items: center;
+  /* justify-content: center; */
+  z-index: 21;
+  background: transparent;
   position: absolute;
-  /* top: -1px;
-  bottom: -0.5px;
-  right: 0;
-  left: 0; */
-  top: 13.5px; //0
-  bottom: -12.5px; //0
-  left: 1px;
-  right: 0.4px;
-  z-index: 20;
-  transform: skewY(var(--skew));
-  transform: scaleX(0); // 0
-  background: rgba(252, 0, 193, 0.8);
+  inset: 0;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    background: rgba(252, 0, 193, 0.85);
+    transition: transform 0.24s ease-in 0.3s;
+  }
 
-  /* border-radius: 0.25rem; */
-  transition: transform 0.24s ease-in;
-  transform-origin: left;
+  & div {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease-in 0s;
+    /* transition: border-color 0.1s; */
+    border: 2.5px solid rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
+    &:hover {
+      border-color: rgba(255, 255, 255, 1);
+    }
+  }
 `;
 
 export const CardContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   color: #c5c5ce;
-
   position: relative;
   --skew: -5deg;
   background: transparent;
-
-  cursor: pointer;
+  /* cursor: pointer; */
   z-index: 1;
+  padding: 0;
   &::before {
     content: "";
     position: absolute;
-    top: 0px; //-1
-    bottom: 0px; /////-.5
-    right: 0;
-    left: 0;
+    inset: 0;
     z-index: -2;
     transform: skewY(var(--skew));
     background-image: linear-gradient(35deg, var(--gradient));
@@ -50,15 +75,11 @@ export const CardContainer = styled.div`
       transform: scale(1.01, 1.03) skewY(var(--skew));
     }
   }
-
   &::after {
     content: "";
     position: absolute;
     z-index: -1;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    left: 0;
+    inset: 0;
     transform: skewY(var(--skew));
     background-image: linear-gradient(
       to bottom,
@@ -69,15 +90,21 @@ export const CardContainer = styled.div`
   & > * {
     text-align: center;
   }
-
   & div {
     &:nth-child(1) {
     }
   }
   &:hover {
     & ${HoveringItem} {
-      ///
-      transform: scaleX(1) skewY(var(--skew));
+      &::before {
+        transition-delay: 0s;
+        transform: scaleX(1) skewY(var(--skew));
+      }
+      & div {
+        transition-delay: 0.25s;
+        transform: scaleY(1);
+        /* transition-timing-function: 0.2s; */
+      }
     }
   }
 `;
@@ -90,10 +117,8 @@ export const Flex = styled.div`
 export const CardItem = styled(Flex)`
   &:nth-child(2) {
     font-weight: bold;
-
     /* padding: 0.5em; */
     color: #ab79d6;
-
     font-size: 1.35rem;
     line-height: 1.15;
     /* background-color: var(--color-primary); */

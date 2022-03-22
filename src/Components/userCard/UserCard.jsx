@@ -1,9 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { AiFillEye } from "react-icons/ai";
 import {
   CardContainer,
   CardItem,
   SecondaryCardContainer,
   HoveringItem,
+  UserDetailsLink,
 } from "./UserCard.styled";
 
 function UserCard({ user, userNo }) {
@@ -23,7 +26,16 @@ function UserCard({ user, userNo }) {
         </CardItem>
         <CardItem>{email}</CardItem>
       </SecondaryCardContainer>
-      <HoveringItem />
+      <HoveringItem>
+        <div>
+          <UserDetailsLink to={`/user/:${id}`}>
+            <p> Show details</p>
+            <span>
+              <AiFillEye />
+            </span>
+          </UserDetailsLink>
+        </div>
+      </HoveringItem>
     </CardContainer>
   );
 }

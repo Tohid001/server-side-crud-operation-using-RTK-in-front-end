@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GlobalReset } from "./Global.styled.js";
-import { Form, TodoList, Home } from "./Components";
+import { Home, UserDetails } from "./Components";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       <GlobalReset />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/user/:userId" element={<UserDetails />} />
       </Routes>
       {/* <Form addTodoHandler={addTodoHandler} />
       <div className="TodoContainer">
