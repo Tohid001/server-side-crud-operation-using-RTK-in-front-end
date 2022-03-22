@@ -1,0 +1,29 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex-basis: 33%;
+}
+
+.item input {
+  display: inline-block;
+}
+
+.button {
+  flex-basis: 100%;
+  /* background: red; */
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.button button {
+  display: inline-block;
+  /* margin: 0 auto; */
+  all: unset;
+  padding: 0.5em;
+  border: 1px solid black;
+  background: yellow;
+}

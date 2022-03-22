@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback, useEffect } from "react";
+import { GlobalReset } from "./Global.styled.js";
+import { Home, UserDetails } from "./Components";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
+  console.log("App rendered");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalReset />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/user/:userId" element={<UserDetails />} />
+      </Routes>
+      {/* <Form addTodoHandler={addTodoHandler} />
+      <div className="TodoContainer">
+        {todos.map((todo, index) => {
+          return (
+            <TodoList todo={todo} key={index} deleteHandler={deleteHandler} />
+          );
+        })}
+      </div> */}
+    </>
   );
 }
 

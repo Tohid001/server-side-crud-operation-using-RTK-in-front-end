@@ -1,3 +1,10 @@
+import axios from "axios";
+
 export const api = {
-  url: "https://fake-server-app-crud.herokuapp.com",
+  url: "http://localhost:3200",
+  get: async function (dispatch) {
+    const response = await axios.get(`${this.url}/users`);
+    console.log("api", response.data);
+    dispatch({ type: "getUsers", value: response.data });
+  },
 };
