@@ -3,29 +3,14 @@ import { Row } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 
-function RowInfo({ oKey, currentUser }) {
+function RowInfo({ title, value, children }) {
   const [isEdit, setEdit] = useState(false);
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    isEdit && inputRef.current.focus();
-  }, [isEdit]);
 
   return (
-    <Row test={oKey}>
-      <div>{oKey}</div>
+    <Row>
+      <div>{title}</div>
       <div>
-        {!isEdit ? (
-          <p>{currentUser[oKey]}</p>
-        ) : (
-          <input
-            ref={inputRef}
-            type={oKey === "gender" ? "radio" : " text"}
-            name={oKey}
-            value={currentUser[oKey]}
-            onChange={() => {}}
-          />
-        )}
+        {!isEdit ? <p>{value}</p> : children}
         <span
           onClick={() => {
             setEdit((prev) => !prev);
