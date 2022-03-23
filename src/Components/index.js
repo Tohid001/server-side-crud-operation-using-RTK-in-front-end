@@ -3,5 +3,6 @@ import UserCard from "./userCard/UserCard.jsx";
 import Home from "./Home/Home.jsx";
 import UserDetails from "./userDetails/UsersDetails.jsx";
 import TextInput from "./TextInput/TextInput.jsx";
+import RadioInput from "./TextInput/TextInput.jsx";
 
-export { Form, Home, UserDetails, UserCard, TextInput };
+export { Form, Home, UserDetails, UserCard, TextInput, RadioInput };

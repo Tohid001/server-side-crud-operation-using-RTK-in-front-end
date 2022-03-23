@@ -1,21 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../Contexts/usersContext";
 import { UserContainer, InfoContainer } from "./UserDetails.styled";
-import {} from "../userCard/UserCard.styled";
+import useForm from "../../Hooks/useForm.js";
 import Row from "./RowInfo.jsx";
 
 function UsersDetails() {
   const { userId } = useParams();
   const [users, dispatch] = useContext(UserContext);
-
   const currentUserIndex = users?.findIndex(
     (user, index) => user.id === userId
   );
 
-  // const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
-  //   users[currentUserIndex];
   const currentUser = users[currentUserIndex];
+  const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
+    currentUser;
+  const [value, setValue, onChange, reset] = useForm({
+    name,
+    email,
+    gender,
+    address,
+    phone,
+    country,
+    jobTitle,
+  });
 
   return (
     <UserContainer>

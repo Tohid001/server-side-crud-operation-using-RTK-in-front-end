@@ -20,7 +20,7 @@ function RowInfo({ oKey, currentUser }) {
         ) : (
           <input
             ref={inputRef}
-            type="text"
+            type={oKey === "gender" ? "radio" : " text"}
             name={oKey}
             value={currentUser[oKey]}
             onChange={() => {}}
@@ -31,7 +31,11 @@ function RowInfo({ oKey, currentUser }) {
             setEdit((prev) => !prev);
           }}
         >
-          {!isEdit ? <AiFillEdit /> : <IoIosCloudDone />}
+          {!isEdit ? (
+            <AiFillEdit size="1.25rem" />
+          ) : (
+            <IoIosCloudDone size="1.25rem" color="green" />
+          )}
         </span>
       </div>
     </Row>

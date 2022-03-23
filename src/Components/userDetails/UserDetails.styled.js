@@ -49,7 +49,10 @@ export const Row = styled.div`
       }
       & input {
         flex-basis: 100%;
-        /* all: unset; */
+        all: unset;
+        border: 1px solid rgba(217, 41, 217);
+        text-align: left;
+        padding: 4px;
       }
     }
   }
