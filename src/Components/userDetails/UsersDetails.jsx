@@ -20,19 +20,19 @@ function UsersDetails() {
   return (
     <UserContainer>
       <InfoContainer>
-        <Row initialState={{ name }} title="Name">
+        <Row initialState={{ name }} value={name} title="Name">
           {(options) => {
             return <TextInput {...options} placeholder="john doe." />;
           }}
         </Row>
 
-        <Row initialState={{ email }} title="E-mail">
+        <Row initialState={{ email }} value={email} title="E-mail">
           {(options) => {
             return <TextInput {...options} placeholder="asasa@gmail.com" />;
           }}
         </Row>
 
-        <Row initialState={{ gender }} title="Gender">
+        <Row initialState={{ gender }} value={gender} title="Gender">
           {(options) => {
             return ["male", "female", "others"].map((item, index) => (
               <RadioInput {...options} key={index} value={item} label={item} />
@@ -40,19 +40,19 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row initialState={{ country }} title="Country">
+        <Row initialState={{ country }} value={country} title="Country">
           {(options) => {
             return <SelectInput {...options} options={countryData} />;
           }}
         </Row>
 
-        <Row initialState={{ jobTitle }} title="Job Title">
+        <Row initialState={{ jobTitle }} value={jobTitle} title="Job Title">
           {(options) => {
             return <TextInput {...options} placeholder="web developer" />;
           }}
         </Row>
 
-        <Row initialState={{ address }} title="Address">
+        <Row initialState={{ address }} value={address} title="Address">
           {(options) => {
             return (
               <TextInput {...options} name="address" placeholder="asasas" />
@@ -60,7 +60,7 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row initialState={{ phone }} title="Phone">
+        <Row initialState={{ phone }} value={phone} title="Phone">
           {(options) => {
             return <TextInput {...options} name="phone" placeholder="123" />;
           }}
