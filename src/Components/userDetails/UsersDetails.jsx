@@ -7,12 +7,12 @@ import { TextInput, RadioInput, SelectInput } from "../index.js";
 import { countryData } from "../../constants";
 
 function UsersDetails() {
+  const [users, dispatch] = useContext(UserContext);
+
   console.log("userDetails rendered");
 
   const { userId } = useParams();
   console.log("userDetails", userId); ///
-
-  const [users, dispatch] = useContext(UserContext);
 
   console.log("users", users);
 
@@ -31,19 +31,37 @@ function UsersDetails() {
   return (
     <UserContainer>
       <InfoContainer>
-        <Row id={id} initialState={{ name }} value={name} title="Name">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ name }}
+          value={name}
+          title="Name"
+        >
           {(options) => {
             return <TextInput {...options} placeholder="john doe." />;
           }}
         </Row>
 
-        <Row id={id} initialState={{ email }} value={email} title="E-mail">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ email }}
+          value={email}
+          title="E-mail"
+        >
           {(options) => {
             return <TextInput {...options} placeholder="asasa@gmail.com" />;
           }}
         </Row>
 
-        <Row id={id} initialState={{ gender }} value={gender} title="Gender">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ gender }}
+          value={gender}
+          title="Gender"
+        >
           {(options) => {
             return ["male", "female", "others"].map((item, index) => (
               <RadioInput {...options} key={index} value={item} label={item} />
@@ -51,13 +69,20 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ country }} value={country} title="Country">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ country }}
+          value={country}
+          title="Country"
+        >
           {(options) => {
             return <SelectInput {...options} options={countryData} />;
           }}
         </Row>
 
         <Row
+          dispatch={dispatch}
           id={id}
           initialState={{ jobTitle }}
           value={jobTitle}
@@ -68,7 +93,13 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ address }} value={address} title="Address">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ address }}
+          value={address}
+          title="Address"
+        >
           {(options) => {
             return (
               <TextInput {...options} name="address" placeholder="asasas" />
@@ -76,7 +107,13 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ phone }} value={phone} title="Phone">
+        <Row
+          dispatch={dispatch}
+          id={id}
+          initialState={{ phone }}
+          value={phone}
+          title="Phone"
+        >
           {(options) => {
             return <TextInput {...options} name="phone" placeholder="123" />;
           }}

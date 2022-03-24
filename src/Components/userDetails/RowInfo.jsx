@@ -7,16 +7,17 @@ import useForm from "../../Hooks/useForm.js";
 import { api } from "../../api.js";
 import { UserContext } from "../../Contexts/usersContext";
 
-function RowInfo({ id, initialState, value, title, children }) {
+function RowInfo({ dispatch, id, initialState, value, title, children }) {
+  console.log(` ${title} rendered`);
   const [activity, setActivity] = useState({
     isEdit: false,
     isUpdate: false,
     showSuccess: false,
   });
-  console.log("row", activity);
+
   const { isEdit, isUpdate, showSuccess } = activity;
 
-  const [, dispatch] = useContext(UserContext);
+  // const [, dispatch] = useContext(UserContext);
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useForm(initialState);
 
