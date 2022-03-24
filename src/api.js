@@ -7,8 +7,9 @@ export const api = {
     console.log("get", response.data);
     dispatch({ type: "getUsers", value: response.data });
   },
-  patch: async function ({ dispatch, id, body, setIsUpdate }) {
+  patch: async function ({ dispatch, id, body, setIsUpdate, setEdit }) {
     const response = await axios.patch(`${this.url}/users/${id}`, { ...body });
-    console.log("patch", response.data);
+    setIsUpdate((prev) => !prev);
+    setEdit((prev) => !prev);
   },
 };

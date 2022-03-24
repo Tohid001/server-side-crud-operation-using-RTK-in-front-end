@@ -22,13 +22,11 @@ export const Row = styled.div`
   gap: 0.5rem; //responsive;
   padding: 1.1rem; //responsive
   align-items: stretch; //responsive
-  & div {
-    &:nth-child(1) {
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #ab79d6;
-      font-size: 1.2rem;
-    }
+  .title {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ab79d6;
+    font-size: 1.2rem;
   }
 `;
 
@@ -94,6 +92,17 @@ export const IconContainer = styled.div`
       }
     }
   }
+`;
+
+export const ShowSuccess = styled.div`
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(74, 255, 33, 0.9);
+  color: black;
+  font-weight: bold;
+  z-index: 20;
 `;
 
 // export const Update=styled.div`

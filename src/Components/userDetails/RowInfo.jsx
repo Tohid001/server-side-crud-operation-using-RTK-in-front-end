@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Row, IconContainer, SubRow } from "./UserDetails.styled";
+import { Row, IconContainer, SubRow, ShowSuccess } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
-import useInput from "../../Hooks/useForm.js";
-import axios from "axios";
+import useForm from "../../Hooks/useForm.js";
 import { api } from "../../api.js";
 import { UserContext } from "../../Contexts/usersContext";
 
 function RowInfo({ id, initialState, value, title, children }) {
-  const [, dispatch] = useContext(UserContext);
   const [isEdit, setEdit] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const [, dispatch] = useContext(UserContext);
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
-    useInput(initialState);
+    useForm(initialState);
 
   const options = {
     state: formstates[Object.keys(initialState)[0]],
@@ -23,8 +24,9 @@ function RowInfo({ id, initialState, value, title, children }) {
 
   return (
     <Row>
-      <div>{title}</div>
+      <div className="title">{title}</div>
       <SubRow isUpdate={isUpdate}>
+        {showSuccess && <ShowSuccess>Changes Saved!</ShowSuccess>}
         {!isEdit ? <p>{value}</p> : children(options)}
         <IconContainer
           isEdit={isEdit}
@@ -60,7 +62,14 @@ function RowInfo({ id, initialState, value, title, children }) {
                     Object.values(formstates)[0].toLowerCase()
                   }
                   onClick={() => {
-                    api.patch({ dispatch, id, body: formstates, setIsUpdate });
+                    setIsUpdate((prev) => !prev);
+                    api.patch({
+                      dispatch,
+                      id,
+                      body: formstates,
+                      setIsUpdate,
+                      setEdit,
+                    });
                   }}
                 >
                   <IoIosCloudDone size="1.25rem" />
