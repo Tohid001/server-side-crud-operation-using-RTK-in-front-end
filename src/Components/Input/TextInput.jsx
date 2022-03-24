@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 function TextInput({
-  value,
+  state,
   name,
   onChangeHandler,
   isForm,
@@ -18,7 +18,7 @@ function TextInput({
       <input
         ref={inputRef}
         type="text"
-        value={value}
+        value={state}
         name={name}
         placeholder={placeholder}
         onChange={onChangeHandler}

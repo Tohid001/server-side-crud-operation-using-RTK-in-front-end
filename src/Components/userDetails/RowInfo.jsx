@@ -3,35 +3,25 @@ import { Row, IconContainer } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
-import { TextInput, RadioInput, SelectInput } from "../index.js";
 import useInput from "../../Hooks/useInput.js";
 
-const InputDetector = (type) => {
-  switch (type) {
-    case "text":
-      return <TextInput />;
-    case "radio":
-      return <RadioInput />;
-    case "select":
-      return <SelectInput />;
-  }
-};
-
-function RowInfo({
-  currentInputState,
-  type,
-  title,
-  value,
-  children,
-  resetHandler,
-}) {
+function RowInfo({ initialState, title, children }) {
   const [isEdit, setEdit] = useState(false);
+  const [formstates, setFormstates, onChangeHandler, resetHandler] =
+    useInput(initialState);
+
+  const options = {
+    state: formstates.name,
+    onChangeHandler,
+    name: Object.keys(initialState)[0],
+  };
+  console.log("op", options);
 
   return (
     <Row>
       <div>{title}</div>
       <div className="mainRow">
-        {!isEdit ? <p>{value}</p> : children}
+        {!isEdit ? <p>d</p> : children(options)}
         <IconContainer isEdit={isEdit}>
           {!isEdit ? (
             <span

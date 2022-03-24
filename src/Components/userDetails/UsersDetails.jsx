@@ -22,39 +22,47 @@ function UsersDetails() {
       <InfoContainer>
         <Row initialState={{ name }} title="Name">
           {(options) => {
-            return <TextInput {...options} name="name" />;
+            return <TextInput {...options} placeholder="john doe." />;
           }}
         </Row>
+
         <Row initialState={{ email }} title="E-mail">
           {(options) => {
-            return <TextInput {...options} name="email" />;
+            return <TextInput {...options} placeholder="asasa@gmail.com" />;
           }}
         </Row>
+
         <Row initialState={{ gender }} title="Gender">
           {(options) => {
-            return <RadioInput {...options} name="gender" />;
+            return ["male", "female", "others"].map((item, index) => (
+              <RadioInput {...options} key={index} value={item} label={item} />
+            ));
           }}
         </Row>
+
         <Row initialState={{ country }} title="Country">
           {(options) => {
+            return <SelectInput {...options} options={countryData} />;
+          }}
+        </Row>
+
+        <Row initialState={{ jobTitle }} title="Job Title">
+          {(options) => {
+            return <TextInput {...options} placeholder="web developer" />;
+          }}
+        </Row>
+
+        <Row initialState={{ address }} title="Address">
+          {(options) => {
             return (
-              <SelectInput {...options} name="country" options={countryData} />
+              <TextInput {...options} name="address" placeholder="asasas" />
             );
           }}
         </Row>
-        <Row initialState={{ jobTitle }} title="Job Title">
-          {(options) => {
-            return <TextInput {...options} name="jobTitle" />;
-          }}
-        </Row>
-        <Row initialState={{ address }} title="Address">
-          {(options) => {
-            return <TextInput {...options} name="address" />;
-          }}
-        </Row>
+
         <Row initialState={{ phone }} title="Phone">
           {(options) => {
-            return <TextInput {...options} name="phone" />;
+            return <TextInput {...options} name="phone" placeholder="123" />;
           }}
         </Row>
       </InfoContainer>
