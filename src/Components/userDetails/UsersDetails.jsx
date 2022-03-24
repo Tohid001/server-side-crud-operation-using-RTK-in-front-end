@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../Contexts/usersContext";
 import { UserContainer, InfoContainer } from "./UserDetails.styled";
@@ -7,15 +7,26 @@ import { TextInput, RadioInput, SelectInput } from "../index.js";
 import { countryData } from "../../constants";
 
 function UsersDetails() {
+  console.log("userDetails rendered");
+
   const { userId } = useParams();
+  console.log("userDetails", userId); ///
+
   const [users, dispatch] = useContext(UserContext);
 
-  const currentUserIndex = users?.findIndex(
-    (user, index) => user.id === userId
-  );
+  console.log("users", users);
+
+  const currentUserIndex =
+    users.length > 0
+      ? users.findIndex((user, index) => user.id === userId)
+      : null;
   const currentUser = users[currentUserIndex];
   const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
     currentUser;
+
+  console.log("id", id); ///
+
+  useEffect(() => {}, []);
 
   return (
     <UserContainer>
