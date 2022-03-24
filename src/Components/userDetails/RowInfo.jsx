@@ -8,9 +8,13 @@ import { api } from "../../api.js";
 import { UserContext } from "../../Contexts/usersContext";
 
 function RowInfo({ id, initialState, value, title, children }) {
-  const [isEdit, setEdit] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [activity, setActivity] = useState({
+    isEdit: false,
+    isUpdate: false,
+    showSuccess: false,
+  });
+  console.log("row", activity);
+  const { isEdit, isUpdate, showSuccess } = activity;
 
   const [, dispatch] = useContext(UserContext);
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
@@ -40,7 +44,9 @@ function RowInfo({ id, initialState, value, title, children }) {
           {!isEdit ? (
             <button
               onClick={() => {
-                setEdit((prev) => !prev);
+                setActivity((prev) => {
+                  return { ...prev, isEdit: !prev.isEdit };
+                });
               }}
             >
               <AiFillEdit size="1.25rem" />
@@ -49,7 +55,9 @@ function RowInfo({ id, initialState, value, title, children }) {
             <>
               <button
                 onClick={() => {
-                  setEdit((prev) => !prev);
+                  setActivity((prev) => {
+                    return { ...prev, isEdit: !prev.isEdit };
+                  });
                   resetHandler();
                 }}
               >
@@ -62,13 +70,14 @@ function RowInfo({ id, initialState, value, title, children }) {
                     Object.values(formstates)[0].toLowerCase()
                   }
                   onClick={() => {
-                    setIsUpdate((prev) => !prev);
+                    setActivity((prev) => {
+                      return { ...prev, isUpdate: !prev.isUpdate };
+                    });
                     api.patch({
                       dispatch,
                       id,
                       body: formstates,
-                      setIsUpdate,
-                      setEdit,
+                      setActivity,
                     });
                   }}
                 >

@@ -7,9 +7,31 @@ export const api = {
     console.log("get", response.data);
     dispatch({ type: "getUsers", value: response.data });
   },
-  patch: async function ({ dispatch, id, body, setIsUpdate, setEdit }) {
+  patch: async function ({ dispatch, id, body, setActivity }) {
     const response = await axios.patch(`${this.url}/users/${id}`, { ...body });
-    setIsUpdate((prev) => !prev);
-    setEdit((prev) => !prev);
+
+    setActivity((prev) => {
+      return {
+        ...prev,
+        isUpdate: !prev.isUpdate,
+        isEdit: !prev.isEdit,
+        showSuccess: !prev.showSuccess,
+      };
+    });
+
+    setTimeout(() => {
+      setActivity((prev) => {
+        return {
+          ...prev,
+          showSuccess: !prev.showSuccess,
+        };
+      });
+    }, 1000);
+    // setActivity((prev) => {
+    //   return {
+    //     ...prev,
+    //     showSuccess: !prev.showSuccess,
+    //   };
+    // });
   },
 };
