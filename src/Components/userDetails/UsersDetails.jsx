@@ -20,19 +20,19 @@ function UsersDetails() {
   return (
     <UserContainer>
       <InfoContainer>
-        <Row initialState={{ name }} value={name} title="Name">
+        <Row id={id} initialState={{ name }} value={name} title="Name">
           {(options) => {
             return <TextInput {...options} placeholder="john doe." />;
           }}
         </Row>
 
-        <Row initialState={{ email }} value={email} title="E-mail">
+        <Row id={id} initialState={{ email }} value={email} title="E-mail">
           {(options) => {
             return <TextInput {...options} placeholder="asasa@gmail.com" />;
           }}
         </Row>
 
-        <Row initialState={{ gender }} value={gender} title="Gender">
+        <Row id={id} initialState={{ gender }} value={gender} title="Gender">
           {(options) => {
             return ["male", "female", "others"].map((item, index) => (
               <RadioInput {...options} key={index} value={item} label={item} />
@@ -40,19 +40,24 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row initialState={{ country }} value={country} title="Country">
+        <Row id={id} initialState={{ country }} value={country} title="Country">
           {(options) => {
             return <SelectInput {...options} options={countryData} />;
           }}
         </Row>
 
-        <Row initialState={{ jobTitle }} value={jobTitle} title="Job Title">
+        <Row
+          id={id}
+          initialState={{ jobTitle }}
+          value={jobTitle}
+          title="Job Title"
+        >
           {(options) => {
             return <TextInput {...options} placeholder="web developer" />;
           }}
         </Row>
 
-        <Row initialState={{ address }} value={address} title="Address">
+        <Row id={id} initialState={{ address }} value={address} title="Address">
           {(options) => {
             return (
               <TextInput {...options} name="address" placeholder="asasas" />
@@ -60,7 +65,7 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row initialState={{ phone }} value={phone} title="Phone">
+        <Row id={id} initialState={{ phone }} value={phone} title="Phone">
           {(options) => {
             return <TextInput {...options} name="phone" placeholder="123" />;
           }}

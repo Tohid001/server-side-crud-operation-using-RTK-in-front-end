@@ -11,7 +11,7 @@ function RadioInput({ label, name, value, onChangeHandler, state }) {
         onChange={onChangeHandler}
         id={value}
       />
-      <label for={value}>{label}</label>
+      <label htmlFor={value}>{label}</label>
       <br />
     </>
   );

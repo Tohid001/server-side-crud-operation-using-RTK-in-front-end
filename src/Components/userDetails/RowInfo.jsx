@@ -1,12 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Row, IconContainer } from "./UserDetails.styled";
+import React, { useState, useEffect, useContext } from "react";
+import { Row, IconContainer, SubRow } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
 import useInput from "../../Hooks/useForm.js";
+import axios from "axios";
+import { api } from "../../api.js";
+import { UserContext } from "../../Contexts/usersContext";
 
-function RowInfo({ initialState, value, title, children }) {
+function RowInfo({ id, initialState, value, title, children }) {
+  const [, dispatch] = useContext(UserContext);
   const [isEdit, setEdit] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(true);
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useInput(initialState);
 
@@ -19,7 +24,7 @@ function RowInfo({ initialState, value, title, children }) {
   return (
     <Row>
       <div>{title}</div>
-      <div className="mainRow">
+      <SubRow isUpdate={isUpdate}>
         {!isEdit ? <p>{value}</p> : children(options)}
         <IconContainer isEdit={isEdit}>
           {!isEdit ? (
@@ -40,13 +45,17 @@ function RowInfo({ initialState, value, title, children }) {
               >
                 <GiCancel size="1.25rem" />
               </span>
-              <span>
+              <span
+                onClick={() => {
+                  api.patch({ dispatch, id, body: formstates });
+                }}
+              >
                 <IoIosCloudDone size="1.25rem" />
               </span>
             </>
           )}
         </IconContainer>
-      </div>
+      </SubRow>
     </Row>
   );
 }

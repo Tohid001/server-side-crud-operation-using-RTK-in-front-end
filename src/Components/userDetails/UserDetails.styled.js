@@ -30,18 +30,41 @@ export const Row = styled.div`
       font-size: 1.2rem;
     }
   }
-  .mainRow {
-    background: rgba(212, 208, 207, 0.2);
-    padding: 0.8em;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    & p {
-    }
-    & span {
-      margin-left: auto;
-      cursor: pointer;
-    }
+`;
+
+export const SubRow = styled.div`
+  position: relative;
+  background: rgba(212, 208, 207, 0.2);
+  padding: 0.8em;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  & p {
+  }
+  & span {
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  &:before {
+    content: "loading...";
+    position: absolute;
+    z-index: 10;
+    display: ${({ isUpdate }) => (isUpdate ? "block" : "none")};
+    color: black;
+    font-weight: bold;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    background: rgba(212, 208, 207, 0.8); //
+    display: ${({ isUpdate }) => (isUpdate ? "block" : "none")};
   }
 `;
 
