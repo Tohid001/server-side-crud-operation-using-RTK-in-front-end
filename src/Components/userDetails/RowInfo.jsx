@@ -3,8 +3,28 @@ import { Row, IconContainer } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
+import { TextInput, RadioInput, SelectInput } from "../index.js";
+import useInput from "../../Hooks/useInput.js";
 
-function RowInfo({ title, value, children, resetHandler }) {
+const InputDetector = (type) => {
+  switch (type) {
+    case "text":
+      return <TextInput />;
+    case "radio":
+      return <RadioInput />;
+    case "select":
+      return <SelectInput />;
+  }
+};
+
+function RowInfo({
+  currentInputState,
+  type,
+  title,
+  value,
+  children,
+  resetHandler,
+}) {
   const [isEdit, setEdit] = useState(false);
 
   return (

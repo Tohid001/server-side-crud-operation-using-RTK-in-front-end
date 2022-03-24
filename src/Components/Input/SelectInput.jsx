@@ -1,7 +1,6 @@
 import React from "react";
 
 function SelectInput({
-  isForm,
   value,
   onChangeHandler,
   name,
@@ -11,7 +10,7 @@ function SelectInput({
 }) {
   return (
     <>
-      {isForm && <label for="name">{label}</label>}
+      {label && <label for="name">{label}</label>}
       <select
         id={name}
         value={value}

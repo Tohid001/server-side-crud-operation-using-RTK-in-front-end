@@ -10,7 +10,7 @@ function TextInput({
 }) {
   const inputRef = useRef(null);
   useEffect(() => {
-    !isForm && inputRef.current.focus();
+    !label && inputRef.current.focus();
   }, []);
   return (
     <>
