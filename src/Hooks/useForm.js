@@ -11,6 +11,7 @@ function useForm(initialValue) {
   };
 
   const resetHandler = () => {
+    console.log("reset called");
     setFormstates(initialValue);
   };
 

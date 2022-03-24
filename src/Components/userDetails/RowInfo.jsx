@@ -1,27 +1,42 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Row } from "./UserDetails.styled";
+import { Row, IconContainer } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
+import { GiCancel } from "react-icons/gi";
 
-function RowInfo({ title, value, children }) {
+function RowInfo({ title, value, children, resetHandler }) {
   const [isEdit, setEdit] = useState(false);
 
   return (
     <Row>
       <div>{title}</div>
-      <div>
+      <div className="mainRow">
         {!isEdit ? <p>{value}</p> : children}
-        <span
-          onClick={() => {
-            setEdit((prev) => !prev);
-          }}
-        >
+        <IconContainer isEdit={isEdit}>
           {!isEdit ? (
-            <AiFillEdit size="1.25rem" />
+            <span
+              onClick={() => {
+                setEdit((prev) => !prev);
+              }}
+            >
+              <AiFillEdit size="1.25rem" />
+            </span>
           ) : (
-            <IoIosCloudDone size="1.25rem" color="green" />
+            <>
+              <span
+                onClick={() => {
+                  setEdit((prev) => !prev);
+                  resetHandler();
+                }}
+              >
+                <GiCancel size="1.25rem" />
+              </span>
+              <span>
+                <IoIosCloudDone size="1.25rem" />
+              </span>
+            </>
           )}
-        </span>
+        </IconContainer>
       </div>
     </Row>
   );

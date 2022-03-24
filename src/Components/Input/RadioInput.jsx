@@ -1,17 +1,18 @@
 import React from "react";
 
-function RadioInput({ label, name, value, onChangeHandler, checked }) {
+function RadioInput({ label, name, value, onChangeHandler, state }) {
   return (
     <>
       <input
         type="radio"
         name={name}
         value={value}
-        checked={checked}
+        checked={state.toLowerCase() === value}
         onChange={onChangeHandler}
-        id={name}
+        id={value}
       />
-      <label for={name}>{label}</label>
+      <label for={value}>{label}</label>
+      <br />
     </>
   );
 }

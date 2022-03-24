@@ -30,7 +30,7 @@ function UsersDetails() {
   return (
     <UserContainer>
       <InfoContainer>
-        <Row value={name} title="Name">
+        <Row value={name} title="Name" resetHandler={resetHandler}>
           <TextInput
             value={formstates.name}
             name="name"
@@ -39,13 +39,63 @@ function UsersDetails() {
             placeholder="John Williams"
           />
         </Row>
-        <Row value={email} title="E-mail">
+        <Row value={email} title="E-mail" resetHandler={resetHandler}>
           <TextInput
             value={formstates.email}
             name="email"
             onChangeHandler={onChangeHandler}
             isForm={false}
             placeholder="xy@gmail.com"
+          />
+        </Row>
+
+        <Row value={gender} title="Gender" resetHandler={resetHandler}>
+          {["male", "female", "others"].map((item, index) => (
+            <RadioInput
+              key={index}
+              value={item}
+              state={formstates.gender}
+              name="gender"
+              onChangeHandler={onChangeHandler}
+              label={item}
+            />
+          ))}
+        </Row>
+        <Row value={country} title="Country" resetHandler={resetHandler}>
+          <SelectInput
+            value={formstates.country}
+            name="country"
+            onChangeHandler={onChangeHandler}
+            isForm={false}
+            placeholder="Select country"
+            options={countryData}
+          />
+        </Row>
+        <Row value={jobTitle} title="Job Title" resetHandler={resetHandler}>
+          <TextInput
+            value={formstates.jobTitle}
+            name="jobTitle"
+            onChangeHandler={onChangeHandler}
+            isForm={false}
+            placeholder="web developer"
+          />
+        </Row>
+        <Row value={address} title="Address" resetHandler={resetHandler}>
+          <TextInput
+            value={formstates.address}
+            name="address"
+            onChangeHandler={onChangeHandler}
+            isForm={false}
+            placeholder="69 street, 46 road"
+          />
+        </Row>
+        <Row value={phone} title="Phone" resetHandler={resetHandler}>
+          <TextInput
+            value={formstates.phone}
+            name="phone"
+            onChangeHandler={onChangeHandler}
+            isForm={false}
+            placeholder="+125425879654"
           />
         </Row>
       </InfoContainer>
