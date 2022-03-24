@@ -11,7 +11,7 @@ import { UserContext } from "../../Contexts/usersContext";
 function RowInfo({ id, initialState, value, title, children }) {
   const [, dispatch] = useContext(UserContext);
   const [isEdit, setEdit] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useInput(initialState);
 
@@ -26,32 +26,46 @@ function RowInfo({ id, initialState, value, title, children }) {
       <div>{title}</div>
       <SubRow isUpdate={isUpdate}>
         {!isEdit ? <p>{value}</p> : children(options)}
-        <IconContainer isEdit={isEdit}>
+        <IconContainer
+          isEdit={isEdit}
+          isAbled={
+            !(
+              Object.values(initialState)[0].toLowerCase() ==
+              Object.values(formstates)[0].toLowerCase()
+            )
+          }
+        >
           {!isEdit ? (
-            <span
+            <button
               onClick={() => {
                 setEdit((prev) => !prev);
               }}
             >
               <AiFillEdit size="1.25rem" />
-            </span>
+            </button>
           ) : (
             <>
-              <span
+              <button
                 onClick={() => {
                   setEdit((prev) => !prev);
                   resetHandler();
                 }}
               >
                 <GiCancel size="1.25rem" />
-              </span>
-              <span
-                onClick={() => {
-                  api.patch({ dispatch, id, body: formstates });
-                }}
-              >
-                <IoIosCloudDone size="1.25rem" />
-              </span>
+              </button>
+              <>
+                <button
+                  disabled={
+                    Object.values(initialState)[0].toLowerCase() ==
+                    Object.values(formstates)[0].toLowerCase()
+                  }
+                  onClick={() => {
+                    api.patch({ dispatch, id, body: formstates, setIsUpdate });
+                  }}
+                >
+                  <IoIosCloudDone size="1.25rem" />
+                </button>
+              </>
             </>
           )}
         </IconContainer>

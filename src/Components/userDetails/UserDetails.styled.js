@@ -50,11 +50,11 @@ export const SubRow = styled.div`
     content: "loading...";
     position: absolute;
     z-index: 10;
-    display: ${({ isUpdate }) => (isUpdate ? "block" : "none")};
+    display: ${({ isUpdate }) => (isUpdate ? "grid" : "none")};
     color: black;
     font-weight: bold;
     inset: 0;
-    display: grid;
+
     place-items: center;
     font-size: 1.2rem;
   }
@@ -74,7 +74,11 @@ export const IconContainer = styled.div`
   padding: 0.5em;
   display: flex;
   gap: 10px;
-  & span {
+  /* & div {
+    background: ${({ isAbled }) => (!isAbled ? "rgba(115, 118, 122)" : "null")};
+  } */
+  & button {
+    all: unset;
     &:nth-child(1) {
       color: ${({ isEdit }) => (isEdit ? "rgba(255, 47, 0, 0.5)" : "null")};
       &:hover {
@@ -82,9 +86,16 @@ export const IconContainer = styled.div`
       }
     }
     &:nth-child(2) {
+      color: ${({ isAbled, isEdit }) =>
+        isEdit && !isAbled ? "rgba(101, 103, 105)" : "null"};
       &:hover {
-        color: ${({ isEdit }) => (isEdit ? "rgba(0, 255, 0)" : "null")};
+        color: ${({ isEdit, isAbled }) =>
+          isEdit && !isAbled ? "null" : "rgba(0, 255, 0)"};
       }
     }
   }
 `;
+
+// export const Update=styled.div`
+
+// `
