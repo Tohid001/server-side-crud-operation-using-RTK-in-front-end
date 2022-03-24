@@ -36,4 +36,9 @@ export const GlobalReset = createGlobalStyle`
 body{
   background-color:black;
 }
+select,input{
+  /* all:unset; */
+  font-weight:bold;
+
+}
  `;

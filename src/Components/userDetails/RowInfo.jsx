@@ -1,38 +1,51 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Row } from "./UserDetails.styled";
+import { Row, IconContainer } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
+import { GiCancel } from "react-icons/gi";
+import useInput from "../../Hooks/useForm.js";
 
-function RowInfo({ oKey, currentUser }) {
+function RowInfo({ initialState, value, title, children }) {
   const [isEdit, setEdit] = useState(false);
-  const inputRef = useRef(null);
+  const [formstates, setFormstates, onChangeHandler, resetHandler] =
+    useInput(initialState);
 
-  useEffect(() => {
-    isEdit && inputRef.current.focus();
-  }, [isEdit]);
+  const options = {
+    state: formstates[Object.keys(initialState)[0]],
+    onChangeHandler,
+    name: Object.keys(initialState)[0],
+  };
 
   return (
-    <Row test={oKey}>
-      <div>{oKey}</div>
-      <div>
-        {!isEdit ? (
-          <p>{currentUser[oKey]}</p>
-        ) : (
-          <input
-            ref={inputRef}
-            type="text"
-            name={oKey}
-            value={currentUser[oKey]}
-            onChange={() => {}}
-          />
-        )}
-        <span
-          onClick={() => {
-            setEdit((prev) => !prev);
-          }}
-        >
-          {!isEdit ? <AiFillEdit /> : <IoIosCloudDone />}
-        </span>
+    <Row>
+      <div>{title}</div>
+      <div className="mainRow">
+        {!isEdit ? <p>{value}</p> : children(options)}
+        <IconContainer isEdit={isEdit}>
+          {!isEdit ? (
+            <span
+              onClick={() => {
+                setEdit((prev) => !prev);
+              }}
+            >
+              <AiFillEdit size="1.25rem" />
+            </span>
+          ) : (
+            <>
+              <span
+                onClick={() => {
+                  setEdit((prev) => !prev);
+                  resetHandler();
+                }}
+              >
+                <GiCancel size="1.25rem" />
+              </span>
+              <span>
+                <IoIosCloudDone size="1.25rem" />
+              </span>
+            </>
+          )}
+        </IconContainer>
       </div>
     </Row>
   );
