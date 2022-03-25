@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, IconContainer, SubRow, ShowSuccess } from "./UserDetails.styled";
+import { Row, IconContainer, SubRow, ShowModal } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
@@ -9,16 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { patchUserThunk } from "../../features/users/usersSlice.js";
 
 function RowInfo({ id, initialState, value, title, children }) {
-  const { loading, error } = useSelector((state) => state.users);
+  // const { loading, error } = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   const [activity, setActivity] = useState({
     isEdit: false,
-    showSuccess: false,
-    showError: false,
+    showModal: false,
+    isError: false,
+    isUpdate: false,
   });
 
-  const { isEdit, showSuccess, showError } = activity;
+  const { isEdit, showModal, isError, isUpdate } = activity;
 
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useForm(initialState);
@@ -33,33 +34,56 @@ function RowInfo({ id, initialState, value, title, children }) {
 
   const onDispatch = () => {
     setActivity((prev) => {
-      return { ...prev, isEdit: !prev.isEdit };
+      return { ...prev, isEdit: !prev.isEdit, isUpdate: !prev.isUpdate };
     });
     dispatch(patchUserThunk({ id, body: formstates }))
       .unwrap()
       .then((originalPromiseResult) => {
         setActivity((prev) => {
-          return { ...prev, showSuccess: !prev.showSuccess };
+          return {
+            ...prev,
+            showModal: !prev.showModal,
+            isUpdate: !prev.isUpdate,
+          };
         });
 
         setTimeout(() => {
           setActivity((prev) => {
-            return { ...prev, showSuccess: !prev.showSuccess };
+            return { ...prev, showModal: !prev.showModal };
           });
         }, 1000);
       })
       .catch((rejectedValueOrSerializedError) => {
         setActivity((prev) => {
-          return { ...prev, showError: !prev.showError };
+          return {
+            ...prev,
+            showModal: !prev.showModal,
+            isUpdate: !prev.isUpdate,
+            isError: !prev.isError,
+          };
         });
+
+        setTimeout(() => {
+          setActivity((prev) => {
+            return {
+              ...prev,
+              showModal: !prev.showModal,
+              isError: !prev.isError,
+            };
+          });
+        }, 1000);
       });
   };
 
   return (
     <Row>
       <div className="title">{title}</div>
-      <SubRow loading={loading}>
-        {showSuccess && <ShowSuccess>Changes Saved!</ShowSuccess>}
+      <SubRow isUpdate={isUpdate}>
+        {showModal && (
+          <ShowModal isError={isError}>
+            {!isError ? "Changes Saved!" : "Failed"}
+          </ShowModal>
+        )}
         {!isEdit ? <p>{value}</p> : children(options)}
         <IconContainer
           isEdit={isEdit}

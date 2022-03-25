@@ -48,7 +48,7 @@ export const SubRow = styled.div`
     content: "loading...";
     position: absolute;
     z-index: 10;
-    display: ${({ loading }) => (loading === "pending" ? "grid" : "none")};
+    display: ${({ isUpdate }) => (isUpdate ? "grid" : "none")};
     color: black;
     font-weight: bold;
     inset: 0;
@@ -61,9 +61,8 @@ export const SubRow = styled.div`
     position: absolute;
     inset: 0;
     z-index: 9;
-    /* background: rgba(212, 208, 207, 0.8); */
-    background: red;
-    display: ${({ loading }) => (loading === "pending" ? "block" : "none")};
+    background: rgba(212, 208, 207, 0.8);
+    display: ${({ isUpdate }) => (isUpdate ? "block" : "none")};
   }
 `;
 
@@ -95,12 +94,13 @@ export const IconContainer = styled.div`
   }
 `;
 
-export const ShowSuccess = styled.div`
+export const ShowModal = styled.div`
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  background-color: rgba(74, 255, 33, 0.9);
+  background-color: ${({ isError }) =>
+    !isError ? "rgba(74, 255, 33, 0.9)" : "rgba(242, 57, 24)"};
   color: black;
   font-weight: bold;
   z-index: 20;
