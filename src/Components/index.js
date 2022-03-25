@@ -1,4 +1,5 @@
 import Form from "./Form/Form.jsx";
+import AddUser from "./AddUser/AddUser.jsx";
 import UserCard from "./userCard/UserCard.jsx";
 import Home from "./Home/Home.jsx";
 import UserDetails from "./userDetails/UsersDetails.jsx";
@@ -14,4 +15,5 @@ export {
   TextInput,
   RadioInput,
   SelectInput,
+  AddUser,
 };

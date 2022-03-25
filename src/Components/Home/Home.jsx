@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { api } from "../../api.js";
 import { UserCard } from "../index";
-import { UsersContainer } from "./Home.styled";
+import { UsersContainer, AddUserButton } from "./Home.styled";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsersThunk, selectors } from "../../features/users/usersSlice.js";
+
+import { IoIosAdd } from "react-icons/io";
 
 function Home() {
   console.log("Home rendered");
@@ -38,6 +40,9 @@ function Home() {
   return (
     <>
       <UsersContainer>
+        <AddUserButton to="/addUser">
+          <IoIosAdd size="2rem" />
+        </AddUserButton>
         {users.map((user, index) => {
           return <UserCard key={index} user={user} userNo={index + 1} />;
         })}
