@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { GiBodyBalance } from "react-icons/gi";
 
 export const fetchUsersThunk = createAsyncThunk(
   "users/fetchUsersThunk",
@@ -19,6 +20,30 @@ export const fetchUsersThunk = createAsyncThunk(
       const response = await axios.get(`http://localhost:3200/users`);
 
       return response.data;
+    } catch (error) {
+      throw rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
+
+export const patchUserThunk = createAsyncThunk(
+  "users/patchUserThunk",
+  async ({ id, body }, { getState, requestId, rejectWithValue }) => {
+    try {
+      console.log("patchUserThunk called");
+      const { currentRequestId, loading } = getState().users;
+      //only one request at a time
+      //   if (loading !== "pending" || requestId !== currentRequestId) {
+      //     return;
+      //   }
+      const response = await axios.patch(
+        `http://localhost:3200/users/${id}`,
+        body
+      );
+
+      // console.log("patchResponse", response);
+
+      return { id, changes: body };
     } catch (error) {
       throw rejectWithValue({ errorMessage: error.message });
     }
@@ -78,7 +103,7 @@ export const usersSlice = createSlice({
     error: null,
   }),
 
-  reducers: { initial: Adaptar.setAll },
+  reducers: { initial: usersAdapter.setAll },
 
   extraReducers: {
     [fetchUsersThunk.pending](state, action) {
@@ -95,7 +120,7 @@ export const usersSlice = createSlice({
       if (state.loading === "pending" && state.currentRequestId === requestId) {
         state.loading = "idle";
         state.currentRequestId = undefined;
-        Adaptar.setAll(state, action);
+        usersAdapter.setAll(state, action);
       }
     },
     [fetchUsersThunk.rejected](state, action) {
@@ -113,26 +138,29 @@ export const usersSlice = createSlice({
         }
       }
     },
-    [deleteThunk.pending](state, action) {
-      console.log(" delete pending");
+    [patchUserThunk.pending](state, action) {
+      console.log(" patchUserThunk pending");
       const { requestId } = action.meta;
       if (state.loading === "idle") {
         state.loading = "pending";
         state.currentRequestId = requestId;
       }
     },
-    [deleteThunk.fulfilled](state, action) {
-      console.log("delete fulfilled");
+    [patchUserThunk.fulfilled](state, action) {
+      const { id, changes } = action.payload;
+      console.log("patchUserThunk fulfilled");
       const { requestId } = action.meta;
       if (state.loading === "pending" && state.currentRequestId === requestId) {
         state.loading = "idle";
         state.currentRequestId = undefined;
-        Adaptar.removeOne(state, action.payload);
+        usersAdapter.updateOne(state, {
+          id,
+          changes,
+        });
       }
     },
-    [deleteThunk.rejected](state, action) {
-      console.log("delete rejected");
-      // console.log("rejected", action);
+    [patchUserThunk.rejected](state, action) {
+      console.log(" patchUserThunk rejected", action);
       const { requestId } = action.meta;
       if (state.loading === "pending" && state.currentRequestId === requestId) {
         state.loading = "idle";
@@ -145,6 +173,38 @@ export const usersSlice = createSlice({
         }
       }
     },
+    // [deleteThunk.pending](state, action) {
+    //   console.log(" delete pending");
+    //   const { requestId } = action.meta;
+    //   if (state.loading === "idle") {
+    //     state.loading = "pending";
+    //     state.currentRequestId = requestId;
+    //   }
+    // },
+    // [deleteThunk.fulfilled](state, action) {
+    //   console.log("delete fulfilled");
+    //   const { requestId } = action.meta;
+    //   if (state.loading === "pending" && state.currentRequestId === requestId) {
+    //     state.loading = "idle";
+    //     state.currentRequestId = undefined;
+    //     Adaptar.removeOne(state, action.payload);
+    //   }
+    // },
+    // [deleteThunk.rejected](state, action) {
+    //   console.log("delete rejected");
+    //   // console.log("rejected", action);
+    //   const { requestId } = action.meta;
+    //   if (state.loading === "pending" && state.currentRequestId === requestId) {
+    //     state.loading = "idle";
+
+    //     state.currentRequestId = undefined;
+    //     if (action.payload) {
+    //       state.error = action.payload;
+    //     } else {
+    //       state.error = action.error.message;
+    //     }
+    //   }
+    // },
   },
 });
 

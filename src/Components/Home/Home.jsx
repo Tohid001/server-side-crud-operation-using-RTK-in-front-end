@@ -1,12 +1,16 @@
-import React, { useCallback, useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { api } from "../../api.js";
 import { UserCard } from "../index";
-import { UserContext } from "../../Contexts/usersContext";
 import { UsersContainer } from "./Home.styled";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsersThunk, selectors } from "../../features/users/usersSlice.js";
 
 function Home() {
   console.log("Home rendered");
-  const [users, dispatch] = useContext(UserContext);
+
+  const users = useSelector(selectors.selectAll);
+  const dispatch = useDispatch();
   // console.log("users", users);
 
   //   const deleteHandler = useCallback((id) => {
@@ -21,8 +25,16 @@ function Home() {
   //   }, []);
 
   useEffect(() => {
-    api.get(dispatch);
+    dispatch(fetchUsersThunk())
+      .unwrap()
+      .then((originalPromiseResult) => {
+        // handle result here
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        // handle error here
+      });
   }, []);
+
   return (
     <>
       <UsersContainer>

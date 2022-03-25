@@ -1,29 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, IconContainer, SubRow, ShowSuccess } from "./UserDetails.styled";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosCloudDone } from "react-icons/io";
 import { GiCancel } from "react-icons/gi";
 import useForm from "../../Hooks/useForm.js";
-import { api } from "../../api.js";
-import { UserContext } from "../../Contexts/usersContext";
 
-function RowInfo({
-  currentUserIndex,
-  id,
-  initialState,
-  value,
-  title,
-  children,
-}) {
+import { useDispatch, useSelector } from "react-redux";
+import { patchUserThunk } from "../../features/users/usersSlice.js";
+
+function RowInfo({ id, initialState, value, title, children }) {
+  const { loading, error } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+
   const [activity, setActivity] = useState({
     isEdit: false,
-    isUpdate: false,
     showSuccess: false,
+    showError: false,
   });
-  console.log("row", activity);
-  const { isEdit, isUpdate, showSuccess } = activity;
 
-  const [, dispatch] = useContext(UserContext);
+  const { isEdit, showSuccess, showError } = activity;
+
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useForm(initialState);
 
@@ -33,17 +29,43 @@ function RowInfo({
     name: Object.keys(initialState)[0],
   };
 
+  console.log(`${Object.keys(initialState)[0]} field rendered`);
+
+  const onDispatch = () => {
+    setActivity((prev) => {
+      return { ...prev, isEdit: !prev.isEdit };
+    });
+    dispatch(patchUserThunk({ id, body: formstates }))
+      .unwrap()
+      .then((originalPromiseResult) => {
+        setActivity((prev) => {
+          return { ...prev, showSuccess: !prev.showSuccess };
+        });
+
+        setTimeout(() => {
+          setActivity((prev) => {
+            return { ...prev, showSuccess: !prev.showSuccess };
+          });
+        }, 1000);
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        setActivity((prev) => {
+          return { ...prev, showError: !prev.showError };
+        });
+      });
+  };
+
   return (
     <Row>
       <div className="title">{title}</div>
-      <SubRow isUpdate={isUpdate}>
+      <SubRow loading={loading}>
         {showSuccess && <ShowSuccess>Changes Saved!</ShowSuccess>}
         {!isEdit ? <p>{value}</p> : children(options)}
         <IconContainer
           isEdit={isEdit}
           isAbled={
             !(
-              Object.values(initialState)[0].toLowerCase() ==
+              Object.values(initialState)[0].toLowerCase() ===
               Object.values(formstates)[0].toLowerCase()
             )
           }
@@ -73,21 +95,10 @@ function RowInfo({
               <>
                 <button
                   disabled={
-                    Object.values(initialState)[0].toLowerCase() ==
+                    Object.values(initialState)[0].toLowerCase() ===
                     Object.values(formstates)[0].toLowerCase()
                   }
-                  onClick={() => {
-                    setActivity((prev) => {
-                      return { ...prev, isUpdate: !prev.isUpdate };
-                    });
-                    api.patch({
-                      dispatch,
-                      id,
-                      body: formstates,
-                      setActivity,
-                      currentUserIndex,
-                    });
-                  }}
+                  onClick={onDispatch}
                 >
                   <IoIosCloudDone size="1.25rem" />
                 </button>

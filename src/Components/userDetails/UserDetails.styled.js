@@ -48,7 +48,7 @@ export const SubRow = styled.div`
     content: "loading...";
     position: absolute;
     z-index: 10;
-    display: ${({ isUpdate }) => (isUpdate ? "grid" : "none")};
+    display: ${({ loading }) => (loading === "pending" ? "grid" : "none")};
     color: black;
     font-weight: bold;
     inset: 0;
@@ -61,8 +61,9 @@ export const SubRow = styled.div`
     position: absolute;
     inset: 0;
     z-index: 9;
-    background: rgba(212, 208, 207, 0.8); //
-    display: ${({ isUpdate }) => (isUpdate ? "block" : "none")};
+    /* background: rgba(212, 208, 207, 0.8); */
+    background: red;
+    display: ${({ loading }) => (loading === "pending" ? "block" : "none")};
   }
 `;
 

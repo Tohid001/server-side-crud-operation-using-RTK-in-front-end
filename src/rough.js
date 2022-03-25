@@ -28,8 +28,6 @@ const initialState = {
   error: null,
 };
 
-//
-
 export const counterSlice = createSlice({
   name: "counter",
   initialState,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function useForm(initialValue) {
   const [formstates, setFormstates] = useState(initialValue);
-  console.log("hook", formstates);
+  // console.log("hook", formstates);
 
   const onChangeHandler = (e) => {
     setFormstates((prev) => {
@@ -11,7 +11,7 @@ function useForm(initialValue) {
   };
 
   const resetHandler = () => {
-    console.log("reset called");
+    // console.log("reset called");
     setFormstates(initialValue);
   };
 
