@@ -10,29 +10,49 @@ function UsersDetails() {
   const { userId } = useParams();
   const [users, dispatch] = useContext(UserContext);
 
-  const currentUserIndex = users?.findIndex(
-    (user, index) => user.id === userId
-  );
-  const currentUser = users[currentUserIndex];
+  console.log("userDetails rendered"); //
+
+  const currentUserIndex = users.findIndex((user, index) => user.id === userId);
+  // const currentUser = users[currentUserIndex];
   const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
-    currentUser;
+    users[currentUserIndex];
+
+  console.log("current user", name);
 
   return (
     <UserContainer>
       <InfoContainer>
-        <Row id={id} initialState={{ name }} value={name} title="Name">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ name }}
+          value={name}
+          title="Name"
+        >
           {(options) => {
             return <TextInput {...options} placeholder="john doe." />;
           }}
         </Row>
 
-        <Row id={id} initialState={{ email }} value={email} title="E-mail">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ email }}
+          value={email}
+          title="E-mail"
+        >
           {(options) => {
             return <TextInput {...options} placeholder="asasa@gmail.com" />;
           }}
         </Row>
 
-        <Row id={id} initialState={{ gender }} value={gender} title="Gender">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ gender }}
+          value={gender}
+          title="Gender"
+        >
           {(options) => {
             return ["male", "female", "others"].map((item, index) => (
               <RadioInput {...options} key={index} value={item} label={item} />
@@ -40,13 +60,20 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ country }} value={country} title="Country">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ country }}
+          value={country}
+          title="Country"
+        >
           {(options) => {
             return <SelectInput {...options} options={countryData} />;
           }}
         </Row>
 
         <Row
+          currentUserIndex={currentUserIndex}
           id={id}
           initialState={{ jobTitle }}
           value={jobTitle}
@@ -57,7 +84,13 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ address }} value={address} title="Address">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ address }}
+          value={address}
+          title="Address"
+        >
           {(options) => {
             return (
               <TextInput {...options} name="address" placeholder="asasas" />
@@ -65,7 +98,13 @@ function UsersDetails() {
           }}
         </Row>
 
-        <Row id={id} initialState={{ phone }} value={phone} title="Phone">
+        <Row
+          currentUserIndex={currentUserIndex}
+          id={id}
+          initialState={{ phone }}
+          value={phone}
+          title="Phone"
+        >
           {(options) => {
             return <TextInput {...options} name="phone" placeholder="123" />;
           }}

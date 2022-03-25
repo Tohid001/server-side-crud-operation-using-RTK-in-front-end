@@ -7,8 +7,14 @@ export const api = {
     console.log("get", response.data);
     dispatch({ type: "getUsers", value: response.data });
   },
-  patch: async function ({ dispatch, id, body, setActivity }) {
-    const response = await axios.patch(`${this.url}/users/${id}`, { ...body });
+  patch: async function ({
+    currentUserIndex,
+    dispatch,
+    id,
+    body,
+    setActivity,
+  }) {
+    await axios.patch(`${this.url}/users/${id}`, { ...body });
 
     setActivity((prev) => {
       return {
@@ -18,7 +24,7 @@ export const api = {
         showSuccess: !prev.showSuccess,
       };
     });
-
+    dispatch({ type: "patchUser", value: body, currentUserIndex });
     setTimeout(() => {
       setActivity((prev) => {
         return {
@@ -27,11 +33,5 @@ export const api = {
         };
       });
     }, 1000);
-    // setActivity((prev) => {
-    //   return {
-    //     ...prev,
-    //     showSuccess: !prev.showSuccess,
-    //   };
-    // });
   },
 };

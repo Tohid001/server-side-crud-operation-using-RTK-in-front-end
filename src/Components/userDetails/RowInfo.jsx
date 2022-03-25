@@ -7,7 +7,14 @@ import useForm from "../../Hooks/useForm.js";
 import { api } from "../../api.js";
 import { UserContext } from "../../Contexts/usersContext";
 
-function RowInfo({ id, initialState, value, title, children }) {
+function RowInfo({
+  currentUserIndex,
+  id,
+  initialState,
+  value,
+  title,
+  children,
+}) {
   const [activity, setActivity] = useState({
     isEdit: false,
     isUpdate: false,
@@ -78,6 +85,7 @@ function RowInfo({ id, initialState, value, title, children }) {
                       id,
                       body: formstates,
                       setActivity,
+                      currentUserIndex,
                     });
                   }}
                 >
