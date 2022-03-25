@@ -34,7 +34,7 @@ function RowInfo({ id, initialState, value, title, children }) {
 
   const onDispatch = () => {
     setActivity((prev) => {
-      return { ...prev, isEdit: !prev.isEdit, isUpdate: !prev.isUpdate };
+      return { ...prev, isUpdate: !prev.isUpdate };
     });
     dispatch(patchUserThunk({ id, body: formstates }))
       .unwrap()
@@ -44,6 +44,7 @@ function RowInfo({ id, initialState, value, title, children }) {
             ...prev,
             showModal: !prev.showModal,
             isUpdate: !prev.isUpdate,
+            isEdit: !prev.isEdit,
           };
         });
 
@@ -60,9 +61,10 @@ function RowInfo({ id, initialState, value, title, children }) {
             showModal: !prev.showModal,
             isUpdate: !prev.isUpdate,
             isError: !prev.isError,
+            isEdit: !prev.isEdit,
           };
         });
-
+        resetHandler();
         setTimeout(() => {
           setActivity((prev) => {
             return {

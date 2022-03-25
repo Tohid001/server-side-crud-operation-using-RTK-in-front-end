@@ -30,7 +30,7 @@ function UsersDetails() {
 
         <Row id={id} initialState={{ email }} value={email} title="E-mail">
           {(options) => {
-            return <TextInput {...options} placeholder="asasa@gmail.com" />;
+            return <TextInput {...options} placeholder="john.doe@gmail.com" />;
           }}
         </Row>
 
@@ -62,14 +62,24 @@ function UsersDetails() {
         <Row id={id} initialState={{ address }} value={address} title="Address">
           {(options) => {
             return (
-              <TextInput {...options} name="address" placeholder="asasas" />
+              <TextInput
+                {...options}
+                name="address"
+                placeholder="69 street, J.F.K area"
+              />
             );
           }}
         </Row>
 
         <Row id={id} initialState={{ phone }} value={phone} title="Phone">
           {(options) => {
-            return <TextInput {...options} name="phone" placeholder="123" />;
+            return (
+              <TextInput
+                {...options}
+                name="phone"
+                placeholder="+903648752541"
+              />
+            );
           }}
         </Row>
       </InfoContainer>
