@@ -14,9 +14,10 @@ function TextInput({
   }, []);
   return (
     <>
-      {label && <label>{label}</label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <input
         ref={inputRef}
+        id={name}
         type="text"
         value={state}
         name={name}

@@ -1,7 +1,7 @@
 import React from "react";
 
 function SelectInput({
-  value,
+  state,
   onChangeHandler,
   name,
   label,
@@ -10,19 +10,22 @@ function SelectInput({
 }) {
   return (
     <>
-      {label && <label for="name">{label}</label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <select
         id={name}
-        value={value}
+        value={state}
         onChange={onChangeHandler}
         name={name}
         placeholder={placeholder}
       >
-        {options.map((item, index) => (
-          <option key={index} value={item}>
-            {item}
-          </option>
-        ))}
+        <>
+          <option disabled>Select a country</option>
+          {options.map((item, index) => (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          ))}
+        </>
       </select>
     </>
   );

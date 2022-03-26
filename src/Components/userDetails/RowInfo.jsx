@@ -24,6 +24,8 @@ function RowInfo({ id, initialState, value, title, children }) {
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useForm(initialState);
 
+  console.log(formstates);
+
   const options = {
     state: formstates[Object.keys(initialState)[0]],
     onChangeHandler,
