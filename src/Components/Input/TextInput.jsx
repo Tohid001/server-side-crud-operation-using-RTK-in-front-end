@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 function TextInput({
+  required,
   state,
   name,
   onChangeHandler,
@@ -16,6 +17,7 @@ function TextInput({
     <>
       {label && <label htmlFor={name}>{label}</label>}
       <input
+        required={required}
         ref={inputRef}
         id={name}
         type="text"

@@ -1,6 +1,7 @@
 import React from "react";
 
 function SelectInput({
+  required,
   state,
   onChangeHandler,
   name,
@@ -12,6 +13,7 @@ function SelectInput({
     <>
       {label && <label htmlFor={name}>{label}</label>}
       <select
+        required={required}
         id={name}
         value={state}
         onChange={onChangeHandler}

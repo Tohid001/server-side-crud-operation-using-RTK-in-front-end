@@ -1,9 +1,10 @@
 import React from "react";
 
-function RadioInput({ label, name, value, onChangeHandler, state }) {
+function RadioInput({ required, label, name, value, onChangeHandler, state }) {
   return (
     <>
       <input
+        required={required}
         type="radio"
         name={name}
         value={value}

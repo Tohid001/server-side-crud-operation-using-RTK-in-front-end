@@ -77,10 +77,24 @@ export const SelectInputContainer = styled(TextInputContainer)`
 `;
 
 export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
   & button {
+    all: unset;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+    color: black;
+    &:hover {
+      transform: translateY(-3.5px) scale(1.05);
+    }
     &:nth-child(1) {
+      background: rgba(2, 247, 84);
     }
     &:nth-child(2) {
+      background: ${({ isResetDisable }) =>
+        isResetDisable ? "rgba(109, 221, 227)" : "rgba(168, 173, 170)"};
     }
   }
 `;
