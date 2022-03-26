@@ -19,7 +19,9 @@ function SelectInput({
         placeholder={placeholder}
       >
         <>
-          <option disabled>Select a country</option>
+          <option value="" disabled selected hidden>
+            Select a country
+          </option>
           {options.map((item, index) => (
             <option key={index} value={item}>
               {item}
