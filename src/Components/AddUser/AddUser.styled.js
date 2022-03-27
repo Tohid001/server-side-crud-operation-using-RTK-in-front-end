@@ -8,3 +8,5 @@ export const Container = styled.div`
   color: white;
   padding: 50px;
 `;
+
+export const Modal = styled.div``;

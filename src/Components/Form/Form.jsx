@@ -1,26 +1,26 @@
 import React from "react";
 import useForm from "../../Hooks/useForm.js";
+import { v4 } from "uuid";
 import { TextInput, SelectInput, RadioInput } from "../index.js";
+import { useNavigate } from "react-router-dom";
 import {
   FormContainer,
   TextInputContainer,
   RadioInputContainer,
   SelectInputContainer,
   ButtonContainer,
+  Modal,
 } from "./Form.styled.js";
 import { countryData } from "../../constants/index.js";
 
-const initialState = {
-  name: "",
-  email: "",
-  gender: "",
-  address: "",
-  phone: "",
-  country: "",
-  jobTitle: "",
-};
+function Form({ submitHandler, initialStateObj, activitiesObj }) {
+  const navigate = useNavigate();
+  const { initialState, setInitialState } = initialStateObj;
+  const {
+    setActivities,
+    activities: { loading, isError, showModal },
+  } = activitiesObj;
 
-function Form() {
   const [formstates, setFormstates, onChangeHandler, resetHandler] =
     useForm(initialState);
 
@@ -28,14 +28,45 @@ function Form() {
 
   console.log(country);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("clicked");
-  };
-
   return (
-    <FormContainer onSubmit={handleSubmit}>
+    <FormContainer
+      onSubmit={(e) => {
+        e.preventDefault();
+        setActivities((prev) => {
+          return {
+            ...prev,
+            showModal: !prev.showModal,
+            loading: !prev.loading,
+          };
+        });
+        submitHandler(e, { ...formstates, id: v4() });
+      }}
+    >
+      {showModal && (
+        <Modal isError={isError} loading={loading}>
+          <span>
+            {loading && !isError
+              ? "loading..."
+              : !loading && isError
+              ? "Failed to create new user!"
+              : !loading && !isError
+              ? "New user created successfully!"
+              : null}
+          </span>
+          {!loading && !isError && (
+            <button
+              onClick={() => {
+                setActivities((prev) => {
+                  return { ...prev, showModal: !prev.showModal };
+                });
+                navigate("/", { replace: true });
+              }}
+            >
+              Go to home page
+            </button>
+          )}
+        </Modal>
+      )}
       <TextInputContainer>
         <TextInput
           name="name"

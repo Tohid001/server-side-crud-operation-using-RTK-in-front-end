@@ -98,3 +98,34 @@ export const ButtonContainer = styled.div`
     }
   }
 `;
+
+export const Modal = styled.div`
+  position: absolute;
+  inset: 0;
+  /* color: ${({ isError }) => (isError ? "red" : "black")}; */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: ${({ isError, loading }) =>
+    !isError && !loading
+      ? "rgba(63, 209, 82)"
+      : isError && !loading
+      ? "rgba(240, 81, 70)"
+      : !isError && loading
+      ? "rgba(155, 147, 237)"
+      : null};
+
+  & button {
+    all: unset;
+    padding: 1rem;
+    background: rgba(184, 242, 203);
+    color: black;
+    cursor: pointer;
+    &:hover {
+      transform: translateY(5px) scale(1.1);
+    }
+  }
+`;
