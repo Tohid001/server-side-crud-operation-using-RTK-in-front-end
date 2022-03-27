@@ -29,16 +29,20 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsersThunk())
-      .unwrap()
-      .then((originalPromiseResult) => {
-        // handle result here
-      })
-      .catch((rejectedValueOrSerializedError) => {
-        // handle error here
-        modalHandler();
-        rejectHandler(rejectedValueOrSerializedError.errorMessage);
-      });
+    const reloadUsers = () => {
+      loadingHandler();
+      dispatch(fetchUsersThunk())
+        .unwrap()
+        .then((originalPromiseResult) => {
+          // handle result here
+          loadingHandler();
+        })
+        .catch((rejectedValueOrSerializedError) => {
+          // handle error here
+          rejectHandler(rejectedValueOrSerializedError.errorMessage);
+        });
+    };
+    !users.length > 0 && reloadUsers();
   }, []);
 
   const deleteHandler = useCallback((id) => {
@@ -47,7 +51,7 @@ function Home() {
 
   return (
     <>
-      {showModal && <Modal error={error} />}
+      {showModal && <Modal loading={loading} error={error} />}
       <UsersContainer>
         <AddUserButton to="/addUser">
           <IoIosAdd size="2rem" />
