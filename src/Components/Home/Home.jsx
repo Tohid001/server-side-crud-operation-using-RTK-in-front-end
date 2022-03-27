@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { UserCard } from "../index";
 import { UsersContainer, AddUserButton } from "./Home.styled";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,9 +26,9 @@ function Home() {
       });
   }, []);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = useCallback((id) => {
     return dispatch(deleteUserThunk(id));
-  };
+  }, []);
 
   return (
     <>

@@ -10,6 +10,10 @@ export const ModalContainer = styled.div`
   padding: 1.5em;
   color: black;
   background-color: ${({ error, loading, showModal }) => {
-    return error ? "red" : "green";
+    return loading
+      ? "rgba(111, 184, 247)"
+      : error
+      ? "rgba(240, 97, 86)"
+      : "rgba(0, 250, 75)";
   }};
 `;

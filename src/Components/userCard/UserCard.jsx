@@ -69,7 +69,8 @@ function UserCard({ user, userNo, deleteHandler }) {
                   })
                   .catch((rejectedValueOrSerializedError) => {
                     // handle error here
-                    rejectHandler(rejectedValueOrSerializedError);
+
+                    rejectHandler(rejectedValueOrSerializedError.errorMessage);
                     setTimeout(() => {
                       errorHandler();
                     }, 1500);
@@ -88,4 +89,4 @@ function UserCard({ user, userNo, deleteHandler }) {
   );
 }
 
-export default UserCard;
+export default React.memo(UserCard);
