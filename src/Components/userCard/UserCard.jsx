@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import {
@@ -38,7 +37,12 @@ function UserCard({ user, userNo, deleteHandler }) {
           </UserDetailsLink>
         </LinkContainer>
         <LinkContainer>
-          <DeleteUserLink as="div">
+          <DeleteUserLink
+            as="div"
+            onClick={() => {
+              deleteHandler(id);
+            }}
+          >
             <p>Delete user</p>
             <span>
               <MdDelete />

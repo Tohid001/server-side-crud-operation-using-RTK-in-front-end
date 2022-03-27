@@ -50,50 +50,28 @@ export const patchUserThunk = createAsyncThunk(
   }
 );
 
-// export const deleteUserThunk = createAsyncThunk(
-//   "users/deleteUserThunk",
-//   async (id, { getState, requestId, rejectWithValue }) => {
-//     try {
-//       // console.log("deleteThunk");
-//       const { currentRequestId, loading } = getState().counter;
-//       //only one request at a time
-//       if (loading !== "pending" || requestId !== currentRequestId) {
-//         return;
-//       }
-//       await axios.delete(` http://localhost:4000/superheroes/${id}`);
-//       // console.log("respone", response);
-
-//       return id;
-//     } catch (error) {
-//       throw rejectWithValue({ errorMessage: error.message });
-//     }
-//   }
-// );
-
-// export const trialThunk2 = createAsyncThunk(
-//   "counter/trialThunk",
-//   async (state, { getState, requestId, rejectWithValue }) => {
-//     try {
-//       const { currentRequestId, loading } = getState().counter;
-//       //only one request at a time
-//       if (loading !== "pending" || requestId !== currentRequestId) {
-//         return;
-//       }
-//       const response = await axios.get(" http://localhost:4000/superheroes");
-//       // console.log("respone", response.data);
-
-//       return response.data.data;
-//     } catch (error) {
-//       throw rejectWithValue({ network: error.message });
-//     }
-//   }
-// );
+export const deleteUserThunk = createAsyncThunk(
+  "users/deleteUserThunk",
+  async (id, { getState, requestId, rejectWithValue }) => {
+    try {
+      console.log("deleteThunk");
+      // const { currentRequestId, loading } = getState().counter;
+      // //only one request at a time
+      // if (loading !== "pending" || requestId !== currentRequestId) {
+      //   return;
+      // }
+      const response = await axios.delete(`http://localhost:3200/users/${id}`);
+      console.log("deleteRespone", response);
+      return id;
+    } catch (error) {
+      throw rejectWithValue({ errorMessage: error.message });
+    }
+  }
+);
 
 const usersAdapter = createEntityAdapter({
   selectId: (entity) => entity.id,
 });
-
-// console.log(usersAdapter);
 
 export const usersSlice = createSlice({
   name: "users",
@@ -173,38 +151,38 @@ export const usersSlice = createSlice({
         }
       }
     },
-    // [deleteThunk.pending](state, action) {
-    //   console.log(" delete pending");
-    //   const { requestId } = action.meta;
-    //   if (state.loading === "idle") {
-    //     state.loading = "pending";
-    //     state.currentRequestId = requestId;
-    //   }
-    // },
-    // [deleteThunk.fulfilled](state, action) {
-    //   console.log("delete fulfilled");
-    //   const { requestId } = action.meta;
-    //   if (state.loading === "pending" && state.currentRequestId === requestId) {
-    //     state.loading = "idle";
-    //     state.currentRequestId = undefined;
-    //     Adaptar.removeOne(state, action.payload);
-    //   }
-    // },
-    // [deleteThunk.rejected](state, action) {
-    //   console.log("delete rejected");
-    //   // console.log("rejected", action);
-    //   const { requestId } = action.meta;
-    //   if (state.loading === "pending" && state.currentRequestId === requestId) {
-    //     state.loading = "idle";
+    [deleteUserThunk.pending](state, action) {
+      console.log(" delete pending");
+      const { requestId } = action.meta;
+      if (state.loading === "idle") {
+        state.loading = "pending";
+        state.currentRequestId = requestId;
+      }
+    },
+    [deleteUserThunk.fulfilled](state, action) {
+      console.log("delete fulfilled");
+      const { requestId } = action.meta;
+      if (state.loading === "pending" && state.currentRequestId === requestId) {
+        state.loading = "idle";
+        state.currentRequestId = undefined;
+        usersAdapter.removeOne(state, action.payload);
+      }
+    },
+    [deleteUserThunk.rejected](state, action) {
+      console.log("delete rejected");
+      // console.log("rejected", action);
+      const { requestId } = action.meta;
+      if (state.loading === "pending" && state.currentRequestId === requestId) {
+        state.loading = "idle";
 
-    //     state.currentRequestId = undefined;
-    //     if (action.payload) {
-    //       state.error = action.payload;
-    //     } else {
-    //       state.error = action.error.message;
-    //     }
-    //   }
-    // },
+        state.currentRequestId = undefined;
+        if (action.payload) {
+          state.error = action.payload;
+        } else {
+          state.error = action.error.message;
+        }
+      }
+    },
   },
 });
 
