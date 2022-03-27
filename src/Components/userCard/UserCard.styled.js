@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+export const LinkContainer = styled.div``;
+
 export const UserDetailsLink = styled(NavLink)`
   all: unset;
   cursor: pointer;
@@ -19,6 +21,8 @@ export const UserDetailsLink = styled(NavLink)`
   }
 `;
 
+export const DeleteUserLink = styled(UserDetailsLink)``;
+
 export const HoveringItem = styled.div`
   display: grid;
   place-items: center;
@@ -36,7 +40,7 @@ export const HoveringItem = styled.div`
     transition: transform 0.24s ease-in 0.3s;
   }
 
-  & div {
+  & ${LinkContainer} {
     transform: scaleY(0);
     transform-origin: bottom;
     transition: transform 0.2s ease-in 0s;
@@ -45,6 +49,10 @@ export const HoveringItem = styled.div`
     background-color: rgba(0, 0, 0, 0.6);
     &:hover {
       border-color: rgba(255, 255, 255, 1);
+    }
+    &:nth-child(2) {
+      background-color: rgba(235, 64, 52, 0.5);
+      color: black;
     }
   }
 `;
@@ -57,7 +65,7 @@ export const CardContainer = styled.div`
   position: relative;
   --skew: -5deg;
   background: transparent;
-  /* cursor: pointer; */
+  cursor: pointer;
   z-index: 1;
   padding: 0;
   &::before {

@@ -1,20 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
 import {
   CardContainer,
   CardItem,
   SecondaryCardContainer,
   HoveringItem,
   UserDetailsLink,
+  DeleteUserLink,
+  LinkContainer,
 } from "./UserCard.styled";
 
-function UserCard({ user, userNo }) {
+function UserCard({ user, userNo, deleteHandler }) {
   console.log("userCard rendered", userNo);
   const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
     user;
-  // console.log("userCard rendered", user);
-  // console.log("user", user.name);
+
   return (
     <CardContainer>
       <SecondaryCardContainer>
@@ -27,14 +29,22 @@ function UserCard({ user, userNo }) {
         <CardItem>{email}</CardItem>
       </SecondaryCardContainer>
       <HoveringItem>
-        <div>
+        <LinkContainer>
           <UserDetailsLink to={`/user/${id}`}>
             <p> Show details</p>
             <span>
               <AiFillEye />
             </span>
           </UserDetailsLink>
-        </div>
+        </LinkContainer>
+        <LinkContainer>
+          <DeleteUserLink as="div">
+            <p>Delete user</p>
+            <span>
+              <MdDelete />
+            </span>
+          </DeleteUserLink>
+        </LinkContainer>
       </HoveringItem>
     </CardContainer>
   );
