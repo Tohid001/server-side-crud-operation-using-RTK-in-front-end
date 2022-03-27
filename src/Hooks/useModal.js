@@ -27,15 +27,15 @@ function useModal() {
     });
   };
 
-  const rejectHandler = () => {
+  const rejectHandler = (err) => {
     setActivities((prev) => {
-      return { ...prev, error: !prev.error, loading: !prev.loading };
+      return { ...prev, error: err, loading: !prev.loading };
     });
   };
 
   const errorHandler = () => {
     setActivities((prev) => {
-      return { ...prev, error: !prev.error };
+      return { ...prev, error: false, showModal: !prev.showModal };
     });
   };
 

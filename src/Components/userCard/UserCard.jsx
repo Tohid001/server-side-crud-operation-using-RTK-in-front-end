@@ -30,40 +30,61 @@ function UserCard({ user, userNo, deleteHandler }) {
     user;
 
   return (
-    <CardContainer>
-      <SecondaryCardContainer>
-        <span className="number">{userNo}</span>
-        <CardItem>{name}</CardItem>
-        <CardItem>{jobTitle}</CardItem>
-        <CardItem>
-          from <span>{country}</span>
-        </CardItem>
-        <CardItem>{email}</CardItem>
-      </SecondaryCardContainer>
-      <HoveringItem>
-        <LinkContainer>
-          <UserDetailsLink to={`/user/${id}`}>
-            <p> Show details</p>
-            <span>
-              <AiFillEye />
-            </span>
-          </UserDetailsLink>
-        </LinkContainer>
-        <LinkContainer>
-          <DeleteUserLink
-            as="div"
-            onClick={() => {
-              deleteHandler(id);
-            }}
-          >
-            <p>Delete user</p>
-            <span>
-              <MdDelete />
-            </span>
-          </DeleteUserLink>
-        </LinkContainer>
-      </HoveringItem>
-    </CardContainer>
+    <>
+      {showModal && (
+        <Modal loading={loading} error={error} showModal={showModal} />
+      )}
+      <CardContainer>
+        <SecondaryCardContainer>
+          <span className="number">{userNo}</span>
+          <CardItem>{name}</CardItem>
+          <CardItem>{jobTitle}</CardItem>
+          <CardItem>
+            from <span>{country}</span>
+          </CardItem>
+          <CardItem>{email}</CardItem>
+        </SecondaryCardContainer>
+        <HoveringItem>
+          <LinkContainer>
+            <UserDetailsLink to={`/user/${id}`}>
+              <p> Show details</p>
+              <span>
+                <AiFillEye />
+              </span>
+            </UserDetailsLink>
+          </LinkContainer>
+          <LinkContainer>
+            <DeleteUserLink
+              as="div"
+              onClick={() => {
+                loadingHandler();
+                deleteHandler(id)
+                  .unwrap()
+                  .then((originalPromiseResult) => {
+                    // handle result here
+                    successHandler();
+                    setTimeout(() => {
+                      modalHandler();
+                    }, 1500);
+                  })
+                  .catch((rejectedValueOrSerializedError) => {
+                    // handle error here
+                    rejectHandler(rejectedValueOrSerializedError);
+                    setTimeout(() => {
+                      errorHandler();
+                    }, 1500);
+                  });
+              }}
+            >
+              <p>Delete user</p>
+              <span>
+                <MdDelete />
+              </span>
+            </DeleteUserLink>
+          </LinkContainer>
+        </HoveringItem>
+      </CardContainer>
+    </>
   );
 }
 

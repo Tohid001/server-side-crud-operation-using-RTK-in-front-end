@@ -52,15 +52,3 @@ function Home() {
 }
 
 export default Home;
-
-// {ShowModal && (
-//   <Modal showModal={ShowModal} loading={loading} error={error}>
-//     {loading === "pending"
-//       ? "loading..."
-//       : loading == "idle"
-//       ? "user deleted successfully!"
-//       : error
-//       ? "Failed to delete user"
-//       : null}
-//   </Modal>
-// )}
