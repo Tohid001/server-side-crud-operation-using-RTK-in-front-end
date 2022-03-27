@@ -7,11 +7,24 @@ import {
   selectors,
   deleteUserThunk,
 } from "../../features/users/usersSlice.js";
+import useModal from "../../Hooks/useModal.js";
+import { Modal } from "../index.js";
 
 import { IoIosAdd } from "react-icons/io";
 
 function Home() {
   console.log("Home rendered");
+  const [
+    loading,
+    showModal,
+    error,
+    setActivities,
+    loadingHandler,
+    modalHandler,
+    errorHandler,
+    rejectHandler,
+    successHandler,
+  ] = useModal();
   const users = useSelector(selectors.selectAll);
   const dispatch = useDispatch();
 
@@ -23,6 +36,8 @@ function Home() {
       })
       .catch((rejectedValueOrSerializedError) => {
         // handle error here
+        modalHandler();
+        rejectHandler(rejectedValueOrSerializedError.errorMessage);
       });
   }, []);
 
@@ -32,6 +47,7 @@ function Home() {
 
   return (
     <>
+      {showModal && <Modal error={error} />}
       <UsersContainer>
         <AddUserButton to="/addUser">
           <IoIosAdd size="2rem" />
