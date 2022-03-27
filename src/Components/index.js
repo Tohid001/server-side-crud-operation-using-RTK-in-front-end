@@ -6,6 +6,7 @@ import UserDetails from "./userDetails/UsersDetails.jsx";
 import TextInput from "./Input/TextInput.jsx";
 import RadioInput from "./Input/RadioInput.jsx";
 import SelectInput from "./Input/SelectInput.jsx";
+import Modal from "./Modal/Modal.jsx";
 
 export {
   Form,
@@ -16,4 +17,5 @@ export {
   RadioInput,
   SelectInput,
   AddUser,
+  Modal,
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { UserCard } from "../index";
 import { UsersContainer, AddUserButton } from "./Home.styled";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,7 +12,6 @@ import { IoIosAdd } from "react-icons/io";
 
 function Home() {
   console.log("Home rendered");
-
   const users = useSelector(selectors.selectAll);
   const dispatch = useDispatch();
 
@@ -53,3 +52,15 @@ function Home() {
 }
 
 export default Home;
+
+// {ShowModal && (
+//   <Modal showModal={ShowModal} loading={loading} error={error}>
+//     {loading === "pending"
+//       ? "loading..."
+//       : loading == "idle"
+//       ? "user deleted successfully!"
+//       : error
+//       ? "Failed to delete user"
+//       : null}
+//   </Modal>
+// )}

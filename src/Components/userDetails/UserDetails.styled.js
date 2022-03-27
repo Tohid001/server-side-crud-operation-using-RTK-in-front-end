@@ -3,7 +3,7 @@ import { CardContainer } from "../userCard/UserCard.styled";
 
 export const UserContainer = styled.div`
   display: grid;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   place-items: center;
   padding: 2rem;
   color: white;

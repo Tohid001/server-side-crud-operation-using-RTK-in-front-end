@@ -10,9 +10,22 @@ import {
   DeleteUserLink,
   LinkContainer,
 } from "./UserCard.styled";
+import useModal from "../../Hooks/useModal.js";
+import { Modal } from "../index.js";
 
 function UserCard({ user, userNo, deleteHandler }) {
   console.log("userCard rendered", userNo);
+  const [
+    loading,
+    showModal,
+    error,
+    setActivities,
+    loadingHandler,
+    modalHandler,
+    errorHandler,
+    rejectHandler,
+    successHandler,
+  ] = useModal();
   const { id, name, email, gender, address, phone, country, avatar, jobTitle } =
     user;
 
