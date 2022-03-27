@@ -1,13 +1,28 @@
 import React from "react";
 
-import { ModalContainer } from "./Modal.styled.js";
+import { ModalContainer, ModalWrapper } from "./Modal.styled.js";
 
 function Modal(props) {
-  const { loading, showModal, error } = props;
+  const { loading, showModal, error, name, id } = props;
   return (
-    <ModalContainer {...props}>
-      {loading ? "loading..." : !error ? "user deleted successfully!" : error}
-    </ModalContainer>
+    <ModalWrapper>
+      <ModalContainer {...props}>
+        {loading ? (
+          <div>
+            <span
+              style={{ fontWeight: "bold" }}
+            >{`Deleting user ${name}...`}</span>
+            <br />
+            <br />
+            <span>{`UserId[${id}]`}</span>
+          </div>
+        ) : !error ? (
+          "user deleted successfully!"
+        ) : (
+          error
+        )}
+      </ModalContainer>
+    </ModalWrapper>
   );
 }
 

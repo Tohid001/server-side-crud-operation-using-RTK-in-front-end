@@ -32,7 +32,13 @@ function UserCard({ user, userNo, deleteHandler }) {
   return (
     <>
       {showModal && (
-        <Modal loading={loading} error={error} showModal={showModal} />
+        <Modal
+          name={name}
+          id={id}
+          loading={loading}
+          error={error}
+          showModal={showModal}
+        />
       )}
       <CardContainer>
         <SecondaryCardContainer>
