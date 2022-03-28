@@ -5,7 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 
 import axios from "axios";
-import { GiBodyBalance } from "react-icons/gi";
+import {
+  usersUrl,
+  pendingReducer,
+  fullfilledReducer,
+  rejectReducer,
+} from "./api";
 
 export const fetchUsersThunk = createAsyncThunk(
   "users/fetchUsersThunk",
@@ -13,11 +18,8 @@ export const fetchUsersThunk = createAsyncThunk(
     try {
       console.log("fetchUsersThunk called");
       const { currentRequestId, loading } = getState().users;
-      //only one request at a time
-      //   if (loading !== "pending" || requestId !== currentRequestId) {
-      //     return;
-      //   }
-      const response = await axios.get(`http://localhost:3200/users`);
+
+      const response = await axios.get(usersUrl);
 
       return response.data;
     } catch (error) {
@@ -32,14 +34,8 @@ export const patchUserThunk = createAsyncThunk(
     try {
       console.log("patchUserThunk called");
       const { currentRequestId, loading } = getState().users;
-      //only one request at a time
-      //   if (loading !== "pending" || requestId !== currentRequestId) {
-      //     return;
-      //   }
-      const response = await axios.patch(
-        `http://localhost:3200/users/${id}`,
-        body
-      );
+
+      const response = await axios.patch(`${usersUrl}/${id}`, body);
 
       // console.log("patchResponse", response);
 
@@ -55,12 +51,7 @@ export const deleteUserThunk = createAsyncThunk(
   async (id, { getState, requestId, rejectWithValue }) => {
     try {
       console.log("deleteThunk");
-      // const { currentRequestId, loading } = getState().counter;
-      // //only one request at a time
-      // if (loading !== "pending" || requestId !== currentRequestId) {
-      //   return;
-      // }
-      const response = await axios.delete(`http://localhost:3200/users/${id}`);
+      const response = await axios.delete(`${usersUrl}/${id}`);
       console.log("deleteRespone", response);
       return id;
     } catch (error) {
@@ -69,7 +60,7 @@ export const deleteUserThunk = createAsyncThunk(
   }
 );
 
-const usersAdapter = createEntityAdapter({
+export const usersAdapter = createEntityAdapter({
   selectId: (entity) => entity.id,
 });
 
@@ -84,105 +75,15 @@ export const usersSlice = createSlice({
   reducers: { initial: usersAdapter.setAll },
 
   extraReducers: {
-    [fetchUsersThunk.pending](state, action) {
-      console.log("pending");
-      const { requestId } = action.meta;
-      if (state.loading === "idle") {
-        state.loading = "pending";
-        state.currentRequestId = requestId;
-      }
-    },
-    [fetchUsersThunk.fulfilled](state, action) {
-      console.log("fulfilled");
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-        state.currentRequestId = undefined;
-        usersAdapter.setAll(state, action);
-      }
-    },
-    [fetchUsersThunk.rejected](state, action) {
-      console.log("rejected");
-      console.log("rejected", action);
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-
-        state.currentRequestId = undefined;
-        if (action.payload) {
-          state.error = action.payload;
-        } else {
-          state.error = action.error.message;
-        }
-      }
-    },
-    [patchUserThunk.pending](state, action) {
-      console.log(" patchUserThunk pending");
-      const { requestId } = action.meta;
-      if (state.loading === "idle") {
-        state.loading = "pending";
-        state.currentRequestId = requestId;
-      }
-    },
-    [patchUserThunk.fulfilled](state, action) {
-      const { id, changes } = action.payload;
-      console.log("patchUserThunk fulfilled");
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-        state.currentRequestId = undefined;
-        usersAdapter.updateOne(state, {
-          id,
-          changes,
-        });
-      }
-    },
-    [patchUserThunk.rejected](state, action) {
-      console.log(" patchUserThunk rejected", action);
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-
-        state.currentRequestId = undefined;
-        if (action.payload) {
-          state.error = action.payload;
-        } else {
-          state.error = action.error.message;
-        }
-      }
-    },
-    [deleteUserThunk.pending](state, action) {
-      console.log(" delete pending");
-      const { requestId } = action.meta;
-      if (state.loading === "idle") {
-        state.loading = "pending";
-        state.currentRequestId = requestId;
-      }
-    },
-    [deleteUserThunk.fulfilled](state, action) {
-      console.log("delete fulfilled");
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-        state.currentRequestId = undefined;
-        usersAdapter.removeOne(state, action.payload);
-      }
-    },
-    [deleteUserThunk.rejected](state, action) {
-      console.log("delete rejected");
-      // console.log("rejected", action);
-      const { requestId } = action.meta;
-      if (state.loading === "pending" && state.currentRequestId === requestId) {
-        state.loading = "idle";
-
-        state.currentRequestId = undefined;
-        if (action.payload) {
-          state.error = action.payload;
-        } else {
-          state.error = action.error.message;
-        }
-      }
-    },
+    [fetchUsersThunk.pending]: pendingReducer(),
+    [fetchUsersThunk.fulfilled]: fullfilledReducer("fetch"),
+    [fetchUsersThunk.rejected]: rejectReducer(),
+    [patchUserThunk.pending]: pendingReducer(),
+    [patchUserThunk.fulfilled]: fullfilledReducer("patch"),
+    [patchUserThunk.rejected]: rejectReducer(),
+    [deleteUserThunk.pending]: pendingReducer(),
+    [deleteUserThunk.fulfilled]: fullfilledReducer(),
+    [deleteUserThunk.rejected]: rejectReducer(),
   },
 });
 
