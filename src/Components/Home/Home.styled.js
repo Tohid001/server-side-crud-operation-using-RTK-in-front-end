@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+export const Note = styled.div`
+  border: 2px solid pink;
+  border-radius: 10px;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: white;
+  margin: 1em;
+`;
+
 export const UsersContainer = styled.div`
   display: grid;
   position: relative;

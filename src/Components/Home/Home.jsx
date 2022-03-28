@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { UserCard } from "../index";
-import { UsersContainer, AddUserButton } from "./Home.styled";
+import { UsersContainer, AddUserButton, Note } from "./Home.styled";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchUsersThunk,
@@ -49,6 +49,10 @@ function Home() {
   return (
     <>
       {showModal && <Modal loading={loading} error={error} />}
+      <Note>
+        Hover over any user card (click if you are using mobile device) to
+        proceed further.
+      </Note>
       <UsersContainer>
         <AddUserButton to="/addUser">
           <IoIosAdd size="2rem" />
