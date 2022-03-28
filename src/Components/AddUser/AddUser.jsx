@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container } from "./AddUser.styled.js";
 import { Form } from "../index.js";
 
+// import { usersUrl } from "../../features/users/api";
 import axios from "axios";
 
 function AddUser() {
@@ -23,7 +24,10 @@ function AddUser() {
 
   const submitHandler = async (e, newUser) => {
     try {
-      const response = await axios.post("http://localhost:3200/users", newUser);
+      const response = await axios.post(
+        "https://fake-j-s-v-1.herokuapp.com/users",
+        newUser
+      );
       console.log("res", response);
       setActivities((prev) => {
         return { ...prev, loading: !prev.loading };

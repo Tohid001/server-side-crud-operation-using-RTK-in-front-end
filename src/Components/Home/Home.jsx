@@ -29,20 +29,17 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const reloadUsers = () => {
-      loadingHandler();
-      dispatch(fetchUsersThunk())
-        .unwrap()
-        .then((originalPromiseResult) => {
-          // handle result here
-          loadingHandler();
-        })
-        .catch((rejectedValueOrSerializedError) => {
-          // handle error here
-          rejectHandler(rejectedValueOrSerializedError.errorMessage);
-        });
-    };
-    !users.length > 0 && reloadUsers();
+    loadingHandler();
+    dispatch(fetchUsersThunk())
+      .unwrap()
+      .then((originalPromiseResult) => {
+        // handle result here
+        loadingHandler();
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        // handle error here
+        rejectHandler(rejectedValueOrSerializedError.errorMessage);
+      });
   }, []);
 
   const deleteHandler = useCallback((id) => {
