@@ -49,10 +49,12 @@ function Home() {
   return (
     <>
       {showModal && <Modal loading={loading} error={error} />}
-      <Note>
-        Hover over any user card (click if you are using mobile device) to
-        proceed further.
-      </Note>
+      {!showModal && (
+        <Note loading={loading}>
+          Hover over any user card (click if you are using mobile device) to
+          proceed further.
+        </Note>
+      )}
       <UsersContainer>
         <AddUserButton to="/addUser">
           <IoIosAdd size="2rem" />
