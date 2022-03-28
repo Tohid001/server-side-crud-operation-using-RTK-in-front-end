@@ -3,15 +3,21 @@ import { CardContainer } from "../userCard/UserCard.styled";
 
 export const UserContainer = styled.div`
   display: grid;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   place-items: center;
-  padding: 2rem;
+  @media (max-width: 768px) {
+    padding: 1.5em;
+  }
+  padding: 2em;
   color: white;
 `;
 
 export const InfoContainer = styled(CardContainer)`
   display: block;
-  padding: 1em;
+  @media (max-width: 768px) {
+    padding: 0.5em;
+  }
+  padding: 1.5em;
   text-align: start;
 `;
 
@@ -20,7 +26,7 @@ export const Row = styled.div`
   display: flex;
   flex-direction: column; //responsive
   gap: 0.5rem; //responsive;
-  padding: 1.1rem; //responsive
+  padding: 1rem; //responsive
   align-items: stretch; //responsive
   .title {
     font-weight: bold;

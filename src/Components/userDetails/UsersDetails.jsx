@@ -1,6 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { UserContainer, InfoContainer } from "./UserDetails.styled";
+import {
+  SelectInputContainer,
+  TextInputContainer,
+} from "../Form/Form.styled.js";
 import Row from "./RowInfo.jsx";
 import { TextInput, RadioInput, SelectInput } from "../index.js";
 import { countryData } from "../../constants";
@@ -24,13 +28,21 @@ function UsersDetails() {
       <InfoContainer>
         <Row id={id} initialState={{ name }} value={name} title="Name">
           {(options) => {
-            return <TextInput {...options} placeholder="john doe." />;
+            return (
+              <TextInputContainer>
+                <TextInput {...options} placeholder="john doe." />
+              </TextInputContainer>
+            );
           }}
         </Row>
 
         <Row id={id} initialState={{ email }} value={email} title="E-mail">
           {(options) => {
-            return <TextInput {...options} placeholder="john.doe@gmail.com" />;
+            return (
+              <TextInputContainer>
+                <TextInput {...options} placeholder="john.doe@gmail.com" />
+              </TextInputContainer>
+            );
           }}
         </Row>
 
@@ -44,7 +56,11 @@ function UsersDetails() {
 
         <Row id={id} initialState={{ country }} value={country} title="Country">
           {(options) => {
-            return <SelectInput {...options} options={countryData} />;
+            return (
+              <SelectInputContainer>
+                <SelectInput {...options} options={countryData} />
+              </SelectInputContainer>
+            );
           }}
         </Row>
 
@@ -55,18 +71,24 @@ function UsersDetails() {
           title="Job Title"
         >
           {(options) => {
-            return <TextInput {...options} placeholder="web developer" />;
+            return (
+              <TextInputContainer>
+                <TextInput {...options} placeholder="web developer" />
+              </TextInputContainer>
+            );
           }}
         </Row>
 
         <Row id={id} initialState={{ address }} value={address} title="Address">
           {(options) => {
             return (
-              <TextInput
-                {...options}
-                name="address"
-                placeholder="69 street, J.F.K area"
-              />
+              <TextInputContainer>
+                <TextInput
+                  {...options}
+                  name="address"
+                  placeholder="69 street, J.F.K area"
+                />
+              </TextInputContainer>
             );
           }}
         </Row>
@@ -74,11 +96,13 @@ function UsersDetails() {
         <Row id={id} initialState={{ phone }} value={phone} title="Phone">
           {(options) => {
             return (
-              <TextInput
-                {...options}
-                name="phone"
-                placeholder="+903648752541"
-              />
+              <TextInputContainer>
+                <TextInput
+                  {...options}
+                  name="phone"
+                  placeholder="+903648752541"
+                />
+              </TextInputContainer>
             );
           }}
         </Row>
