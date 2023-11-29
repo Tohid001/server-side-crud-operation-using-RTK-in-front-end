@@ -6,11 +6,11 @@ import {
 
 import axios from "axios";
 import {
-  usersUrl,
   pendingReducer,
   fullfilledReducer,
   rejectReducer,
 } from "./api";
+import { API_URL } from "../../config";
 
 export const fetchUsersThunk = createAsyncThunk(
   "users/fetchUsersThunk",
@@ -19,7 +19,7 @@ export const fetchUsersThunk = createAsyncThunk(
       console.log("fetchUsersThunk called");
       const { currentRequestId, loading } = getState().users;
 
-      const response = await axios.get(usersUrl);
+      const response = await axios.get(API_URL);
 
       return response.data;
     } catch (error) {
@@ -35,7 +35,7 @@ export const patchUserThunk = createAsyncThunk(
       console.log("patchUserThunk called");
       const { currentRequestId, loading } = getState().users;
 
-      const response = await axios.patch(`${usersUrl}/${id}`, body);
+      const response = await axios.patch(`${API_URL}/${id}`, body);
 
       // console.log("patchResponse", response);
 
@@ -51,7 +51,7 @@ export const deleteUserThunk = createAsyncThunk(
   async (id, { getState, requestId, rejectWithValue }) => {
     try {
       console.log("deleteThunk");
-      const response = await axios.delete(`${usersUrl}/${id}`);
+      const response = await axios.delete(`${API_URL}/${id}`);
       console.log("deleteRespone", response);
       return id;
     } catch (error) {

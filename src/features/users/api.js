@@ -1,7 +1,5 @@
 import { usersAdapter } from "./usersSlice";
 
-export const usersUrl = "https://fake-j-s-v-1.herokuapp.com/users";
-
 export const pendingReducer = () => {
   return (state, action) => {
     console.log("pending");

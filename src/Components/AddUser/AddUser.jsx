@@ -4,6 +4,7 @@ import { Form } from "../index.js";
 
 // import { usersUrl } from "../../features/users/api";
 import axios from "axios";
+import { API_URL } from "../../config.js";
 
 function AddUser() {
   const [activities, setActivities] = useState({
@@ -25,7 +26,7 @@ function AddUser() {
   const submitHandler = async (e, newUser) => {
     try {
       const response = await axios.post(
-        "https://fake-j-s-v-1.herokuapp.com/users",
+        API_URL,
         newUser
       );
       console.log("res", response);
