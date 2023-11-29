@@ -1,1 +1,1 @@
-export const API_URL = 'https://json-server-vercel-59np4yb2k-tohid001.vercel.app/users';
+export const API_URL = 'https://json-server-q9et.onrender.com/users';
