@@ -1,5 +1,3 @@
-# Getting Started
-
 # What is this about?
 
 This project is based on asynchronous CRUD operations. In the frontend part, I used to react, react-router, styled-components & redux toolkit (RTK). For the backend, I used a json server deployed in Heroku. I tried to use RTK’s two core API- **createAsyncThunk() & 
