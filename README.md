@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# Getting Started
+
+# What is this about?
+
+This project is based on asynchronous CRUD operations. In the frontend part, I used to react, react-router, styled-components & redux toolkit (RTK). For the backend, I used a json server deployed in Heroku. I tried to use RTK’s two core API- **createAsyncThunk() & 
+createEntityAdapter()** in the most productive way possible to handle client state and CRUD operations asynchronously. I also implemented custom hooks for efficient and reusable form handling.
+
+Live link to observe this app: https://lnkd.in/gjV6gZHX 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
